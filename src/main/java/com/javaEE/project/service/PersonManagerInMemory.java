@@ -36,4 +36,17 @@ public class PersonManagerInMemory implements PersonManager {
         }
     }
 
+    @Override
+    public void deletePersonByUsername(String username){
+        Person personToRemove = null;
+        for(Person person: persons){
+            if(person.getUsername().equals(username)){
+                personToRemove = person;
+            }
+        }
+        if(personToRemove != null){
+            persons.remove(personToRemove);
+        }
+    }
+
 }

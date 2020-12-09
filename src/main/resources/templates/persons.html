@@ -17,6 +17,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Last name</th>
                     <th>Email</th>
@@ -29,6 +30,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="person : ${persons}">
+                    <td th:text="${person.id}"></td>
                     <td th:text="${person.first_name}"></td>
                     <td th:text="${person.last_name}"></td>
                     <td th:text="${person.email}"></td>
@@ -36,7 +38,7 @@
                     <td th:text="${person.username}"></td>
                     <td th:text="${person.password}"></td>
 
-                    <td><a th:href="@{/person/delete/{id}(id=${person.id})}">Delete</a>
+                    <td><a th:href="@{/personDelete(username=${person.username})}">Delete</a>
                         <a th:href="@{/person/edit/{id}(id=${person.id})}">Edit</a></td>
 
                 </tr>

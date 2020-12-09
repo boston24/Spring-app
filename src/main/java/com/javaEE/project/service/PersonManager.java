@@ -7,6 +7,7 @@ public interface PersonManager {
 
     void addPerson(Person person);
     void deletePersonById(String id);
+    void deletePersonByUsername(String username);
     List<Person> getAllPersons();
 
 }
