@@ -1,11 +1,13 @@
 package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Person;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class PersonManagerInMemory implements PersonManager {
 
     private static final List<Person> persons = new ArrayList<>();
@@ -21,6 +23,7 @@ public class PersonManagerInMemory implements PersonManager {
         return persons;
     }
 
+    @Override
     public void deletePersonById(String id){
         Person personToRemove = null;
         for(Person person: persons){

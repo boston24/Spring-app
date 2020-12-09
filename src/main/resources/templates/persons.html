@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Użytkownicy</title>
+</head>
+<body>
+
+    <h1>Użytkownicy</h1>
+
+
+    <div th:switch="${persons}">
+        <h3 th:if="${#lists.isEmpty(persons)}">No person in our db</h3>
+        <div th:unless="${#lists.isEmpty(persons)}">
+            <h2>Persons</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Username</th>
+                    <th>Password</th>
+
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="person : ${persons}">
+                    <td th:text="${person.first_name}"></td>
+                    <td th:text="${person.last_name}"></td>
+                    <td th:text="${person.email}"></td>
+                    <td th:text="${person.country}"></td>
+                    <td th:text="${person.username}"></td>
+                    <td th:text="${person.password}"></td>
+
+                    <td><a th:href="@{/person/delete/{id}(id=${person.id})}">Delete</a>
+                        <a th:href="@{/person/edit/{id}(id=${person.id})}">Edit</a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
