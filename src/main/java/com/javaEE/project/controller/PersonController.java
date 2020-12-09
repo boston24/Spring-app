@@ -46,7 +46,6 @@ public class PersonController {
         return "redirect:/";
     }
 
-    //@GetMapping("/personDelete")
     @RequestMapping("/personDelete")
     public String deletePerson(@RequestParam String username){
         pm.deletePersonByUsername(username);
