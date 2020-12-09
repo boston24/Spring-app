@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Application {
 
-    private int id;
+    private String id;
     private String name;
     private String domain;
     private List<Person> user_list;

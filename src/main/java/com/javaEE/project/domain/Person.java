@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Person {
 
-    private int id;
+    private String id;
     private String first_name;
     private String last_name;
     private String email;
