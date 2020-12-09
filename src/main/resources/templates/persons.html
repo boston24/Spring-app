@@ -8,8 +8,9 @@
 
     <h1>Użytkownicy</h1>
 
+    <h2>No of records: <span th:text="${persons.size()}"></span></h2>
 
-    <div th:switch="${persons}">
+    <div>
         <h3 th:if="${#lists.isEmpty(persons)}">No person in our db</h3>
         <div th:unless="${#lists.isEmpty(persons)}">
             <h2>Persons</h2>
@@ -43,9 +44,6 @@
             </table>
         </div>
     </div>
-
-
-
 
 </body>
 </html>
