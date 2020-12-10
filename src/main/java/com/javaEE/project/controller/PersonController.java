@@ -1,6 +1,7 @@
 package com.javaEE.project.controller;
 
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class PersonController {
 
     @Autowired
     PersonManager pm;
+
+    @Autowired
+    ApplicationManager am;
 
     @GetMapping("/personAll")
     public String showPersons(Model model){
@@ -58,7 +62,7 @@ public class PersonController {
         return "poop";
     }
 
-    @RequestMapping("appAll/addUser")
+    @RequestMapping("appAll/selectUser")
     public String addUser(@RequestParam String domain, Model model){
         model.addAttribute("persons",pm.getAllPersonsNotInApp(domain));
         model.addAttribute("domain",domain);

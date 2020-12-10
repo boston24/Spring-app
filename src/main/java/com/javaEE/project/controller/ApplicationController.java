@@ -23,6 +23,9 @@ public class ApplicationController {
     @Autowired
     ApplicationManager am;
 
+    @Autowired
+    PersonManager pm;
+
     @GetMapping("/appAll")
     public String showApps(Model model){
         /*Application app = new Application();
@@ -72,11 +75,13 @@ public class ApplicationController {
         return "redirect:/";
     }
 
-    /*@PostMapping("appAll/addUser")
-    public String addPersonToApp(@RequestParam String domain, @RequestParam Person person){
-        am.addToUserList(domain,person);
+    @RequestMapping("appAll/addUser")
+    public String addPersonToApp(@RequestParam String domain, @RequestParam String username){
+        Person p = pm.getPersonByUsername(username);
+        am.addToUserList(domain,p);
+        log.info("Dodano osobe "+p+"do domeny: "+domain);
         return "home";
-    }*/
+    }
 
 
 }

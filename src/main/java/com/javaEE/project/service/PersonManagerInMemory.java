@@ -50,6 +50,7 @@ public class PersonManagerInMemory implements PersonManager {
         }
     }
 
+
     @Override
     public List<Person> getAllPersonsNotInApp(String domain){
         List<Person> temp = new ArrayList<>();
@@ -68,6 +69,16 @@ public class PersonManagerInMemory implements PersonManager {
 
         }
         return temp;
+    }
+
+    @Override
+    public Person getPersonByUsername(String username){
+        for(Person p : persons){
+            if(p.getUsername().equals(username)){
+                return p;
+            }
+        }
+        return null;
     }
 
 }
