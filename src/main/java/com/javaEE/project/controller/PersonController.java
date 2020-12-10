@@ -22,7 +22,7 @@ public class PersonController {
     PersonManager pm;
 
     @GetMapping("/personAll")
-    public String persons(Model model){
+    public String showPersons(Model model){
         Person p = new Person();
         p.setUsername("boop");
         pm.addPerson(p);

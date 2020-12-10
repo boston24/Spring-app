@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+</head>
+<body>
+
+<h1>Aplikacje</h1>
+
+<h2>No of records: <span th:text="${apps.size()}"></span></h2>
+
+<div>
+    <h3 th:if="${#lists.isEmpty(apps)}">No person in our db</h3>
+    <div th:unless="${#lists.isEmpty(apps)}">
+        <h2>Applications</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Domain</th>
+
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="app : ${apps}">
+                <td th:text="${app.id}"></td>
+                <td th:text="${app.name}"></td>
+                <td th:text="${app.domain}"></td>
+
+                <!--<td><a th:href="@{/personDelete(username=${person.username})}">Delete</a>
+                    <a th:href="@{/person/edit/{id}(id=${person.id})}">Edit</a></td>-->
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

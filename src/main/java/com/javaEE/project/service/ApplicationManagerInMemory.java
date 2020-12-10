@@ -1,7 +1,6 @@
 package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Application;
-import com.javaEE.project.domain.Person;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,9 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ApplicationManagerInMemory {
+public class ApplicationManagerInMemory implements ApplicationManager {
 
     private static final List<Application> applications = new ArrayList<>();
+
+    @Override
+    public List<Application> getAllApplications(){ return applications; }
 
     @Override
     public void addApplication(Application application){
@@ -20,10 +22,10 @@ public class ApplicationManagerInMemory {
     }
 
     @Override
-    public void deleteApplicationByUsername(String name){
+    public void deleteApplicationByName(String name){
         Application appToRemove = null;
         for(Application app: applications){
-            if(app.getName()).equals(name)){
+            if(app.getName().equals(name)){
                 appToRemove = app;
             }
         }
