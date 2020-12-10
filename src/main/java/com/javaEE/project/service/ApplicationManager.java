@@ -6,7 +6,7 @@ import java.util.List;
 public interface ApplicationManager {
 
     void addApplication(Application application);
-    void deleteApplicationByName(String name);
+    void deleteApplicationByDomain(String name);
     List<Application> getAllApplications();
 
 }

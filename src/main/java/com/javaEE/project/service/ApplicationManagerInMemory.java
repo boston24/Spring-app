@@ -22,10 +22,10 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     }
 
     @Override
-    public void deleteApplicationByName(String name){
+    public void deleteApplicationByDomain(String domain){
         Application appToRemove = null;
         for(Application app: applications){
-            if(app.getName().equals(name)){
+            if(app.getDomain().equals(domain)){
                 appToRemove = app;
             }
         }
