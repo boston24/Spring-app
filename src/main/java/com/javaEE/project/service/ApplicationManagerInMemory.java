@@ -1,11 +1,13 @@
 package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Application;
+import com.javaEE.project.domain.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -34,6 +36,35 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         }
         if(appToRemove != null){
             applications.remove(appToRemove);
+        }
+    }
+
+    @Override
+    public Application findByDomain(String domain){
+        for(Application app : applications){
+            if(app.getDomain().equals(domain)){
+                return app;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Application findById(String id){
+        for(Application app : applications){
+            if(app.getId().equals(id)){
+                return app;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void replace(Application edited){
+        for(Application app : applications){
+            if(app.getId().equals(edited.getId())){
+                applications.set(applications.indexOf(app),edited);
+            }
         }
     }
 

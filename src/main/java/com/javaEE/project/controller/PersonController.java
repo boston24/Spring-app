@@ -53,4 +53,9 @@ public class PersonController {
         return "redirect:/";
     }
 
+    @GetMapping("/addUsersToApp")
+    public String addToApp(@RequestParam String domain){
+        return "poop";
+    }
+
 }
