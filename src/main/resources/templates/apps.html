@@ -2,42 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <title>Applications</title>
 </head>
 <body>
 
-<h1>Aplikacje</h1>
+    <h1>Aplikacje</h1>
 
-<h2>No of records: <span th:text="${apps.size()}"></span></h2>
+    <h2>No of records: <span th:text="${apps.size()}"></span></h2>
 
-<div>
-    <h3 th:if="${#lists.isEmpty(apps)}">No person in our db</h3>
-    <div th:unless="${#lists.isEmpty(apps)}">
-        <h2>Applications</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Domain</th>
+    <div>
+        <h3 th:if="${#lists.isEmpty(apps)}">No person in our db</h3>
+        <div th:unless="${#lists.isEmpty(apps)}">
+            <h2>Applications</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Domain</th>
 
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="app : ${apps}">
-                <td th:text="${app.id}"></td>
-                <td th:text="${app.name}"></td>
-                <td th:text="${app.domain}"></td>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="app : ${apps}">
+                    <td th:text="${app.id}"></td>
+                    <td th:text="${app.name}"></td>
+                    <td th:text="${app.domain}"></td>
 
-                <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
-                    <a th:href="@{/appDelete}">Edit</a></td>
+                    <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
+                        <a th:href="@{/appDelete}">Edit</a></td>
 
-            </tr>
-            </tbody>
-        </table>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
 
 </body>
