@@ -69,5 +69,12 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         }
     }
 
+    @Override
+    public void addToUserList(String domain, Person per){
+        List<Person> temp = findByDomain(domain).getUser_list();
+        temp.add(per);
+        findByDomain(domain).setUser_list(temp);
+    }
+
 
 }

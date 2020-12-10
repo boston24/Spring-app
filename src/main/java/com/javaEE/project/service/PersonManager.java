@@ -8,6 +8,7 @@ public interface PersonManager {
     void addPerson(Person person);
     void deletePersonById(String id);
     void deletePersonByUsername(String username);
+    List<Person> getAllPersonsNotInApp(String domain);
     List<Person> getAllPersons();
 
 }

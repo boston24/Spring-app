@@ -72,5 +72,11 @@ public class ApplicationController {
         return "redirect:/";
     }
 
+    /*@PostMapping("appAll/addUser")
+    public String addPersonToApp(@RequestParam String domain, @RequestParam Person person){
+        am.addToUserList(domain,person);
+        return "home";
+    }*/
+
 
 }

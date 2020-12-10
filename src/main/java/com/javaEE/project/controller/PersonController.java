@@ -58,4 +58,13 @@ public class PersonController {
         return "poop";
     }
 
+    @RequestMapping("appAll/addUser")
+    public String addUser(@RequestParam String domain, Model model){
+        model.addAttribute("persons",pm.getAllPersonsNotInApp(domain));
+        model.addAttribute("domain",domain);
+        return "app-addUsers";
+    }
+
+    //@PostMapping("appAll/addUser")
+
 }

@@ -1,5 +1,6 @@
 package com.javaEE.project.service;
 
+import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,26 @@ public class PersonManagerInMemory implements PersonManager {
         if(personToRemove != null){
             persons.remove(personToRemove);
         }
+    }
+
+    @Override
+    public List<Person> getAllPersonsNotInApp(String domain){
+        List<Person> temp = new ArrayList<>();
+        for(Person per : persons){
+            if(per.getApp_list()==null) {
+                temp.add(per);
+            }
+            else{
+                for(Application app : per.getApp_list()){
+                    if(app.getDomain()==null){
+                        continue;
+                    }
+                    temp.add(per);
+                }
+            }
+
+        }
+        return temp;
     }
 
 }
