@@ -63,6 +63,7 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     public void replace(Application edited){
         for(Application app : applications){
             if(app.getId().equals(edited.getId())){
+                edited.setUser_list(app.getUser_list());
                 applications.set(applications.indexOf(app),edited);
             }
         }
