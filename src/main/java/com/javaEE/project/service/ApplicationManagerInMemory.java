@@ -1,12 +1,14 @@
 package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Application;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class ApplicationManagerInMemory implements ApplicationManager {
 
@@ -25,6 +27,7 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     public void deleteApplicationByDomain(String domain){
         Application appToRemove = null;
         for(Application app: applications){
+            if(app.getDomain()==null){continue;}
             if(app.getDomain().equals(domain)){
                 appToRemove = app;
             }

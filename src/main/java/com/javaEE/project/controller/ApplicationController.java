@@ -41,17 +41,17 @@ public class ApplicationController {
     @PostMapping("/appAdd")
     public String addCreated(@Valid Application application, Errors errors){
         if(errors.hasErrors()){
-            return "adds-add";
+            return "apps-add";
         }
         am.addApplication(application);
-        log.info("Person created: " + application);
+        log.info("App created: " + application);
         return "redirect:/";
     }
 
     @RequestMapping("/appDelete")
     public String deletePerson(@RequestParam String domain){
         am.deleteApplicationByDomain(domain);
-        log.info("Deleted person: "+ domain);
+        log.info("Deleted app: "+ domain);
         return "redirect:/";
     }
 

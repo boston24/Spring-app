@@ -30,8 +30,8 @@
                 <td th:text="${app.name}"></td>
                 <td th:text="${app.domain}"></td>
 
-                <!--<td><a th:href="@{/personDelete(username=${person.username})}">Delete</a>
-                    <a th:href="@{/person/edit/{id}(id=${person.id})}">Edit</a></td>-->
+                <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
+                    <a th:href="@{/appDelete}">Edit</a></td>
 
             </tr>
             </tbody>
