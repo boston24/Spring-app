@@ -28,9 +28,6 @@ public class ApplicationController {
 
     @GetMapping("/appAll")
     public String showApps(Model model){
-        /*Application app = new Application();
-        app.setName("fejzbug");
-        am.addApplication(app);*/
         model.addAttribute("apps", am.getAllApplications());
         return "apps";
     }
@@ -44,11 +41,9 @@ public class ApplicationController {
     @PostMapping("/appAll/edit")
     public String editAppHelp(@Valid Application application, Errors errors){
         if(errors.hasErrors()){
-            return "home";
+            return "redirect:/";
         }
         am.replace(application);
-        log.info("App edited: " + application);
-        log.info("WSZYSTKIE: "+am.getAllApplications());
         return "redirect:/";
     }
 
@@ -64,14 +59,12 @@ public class ApplicationController {
             return "apps-add";
         }
         am.addApplication(application);
-        log.info("App created: " + application);
         return "redirect:/";
     }
 
     @RequestMapping("/appDelete")
     public String deletePerson(@RequestParam String domain){
         am.deleteApplicationByDomain(domain);
-        log.info("Deleted app: "+ domain);
         return "redirect:/";
     }
 
@@ -80,7 +73,7 @@ public class ApplicationController {
         Person p = pm.getPersonByUsername(username);
         Application app = am.findByDomain(domain);
         pm.addAppToAppList(app,p);
-        am.addToUserList(domain,p);
+        am.addToUserList(app,p);
         return "redirect:/";
     }
 

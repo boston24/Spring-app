@@ -62,7 +62,7 @@ public class PersonManagerInMemory implements PersonManager {
             }
             else{
                 for(Application app : per.getApp_list()){
-                    if(app.getDomain().isEmpty()){
+                    if(app.getDomain().equals(domain)){
                         continue;
                     }
                     temp.add(per);
@@ -96,7 +96,9 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public Person getPersonByUsername(String username){
         for(Person p : persons){
+            log.info("Szukam "+username);
             if(p.getUsername().equals(username)){
+                log.info("Znalazłem");
                 return p;
             }
         }
@@ -105,12 +107,8 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public void addAppToAppList(Application app, Person p){
-        /*List<Application> temp = new ArrayList<>();
-        temp = p.getApp_list();
-        temp.add(app);
-        p.setApp_list(temp);*/
+        log.info("Przypisuje aplikacje to listy aplikacji użytkownika");
         p.getApp_list().add(app);
-        log.info("Osoby: "+getAllPersons());
     }
 
     @Override

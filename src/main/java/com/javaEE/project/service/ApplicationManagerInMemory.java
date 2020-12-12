@@ -39,10 +39,14 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     @Override
     public Application findByDomain(String domain){
         for(Application app : applications){
+            log.info("Szukam "+domain);
             if(app.getDomain().equals(domain)){
+                log.info("Znalazłem");
                 return app;
             }
+            log.info("Nie znalazłem");
         }
+        log.info("Wychodze z nullem");
         return null;
     }
 
@@ -67,8 +71,8 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     }
 
     @Override
-    public void addToUserList(String domain, Person per){
-        findByDomain(domain).getUser_list().add(per);
+    public void addToUserList(Application app, Person per){
+        app.getUser_list().add(per);
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface ApplicationManager {
     Application findByDomain(String domain);
     Application findById(String id);
     void replace(Application edited);
-    void addToUserList(String domain, Person per);
+    void addToUserList(Application app, Person per);
     void removeFromUserList(String domain, Person per);
     List<Application> getAllApplications();
 
