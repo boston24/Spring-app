@@ -13,6 +13,9 @@
 
     <form method="post" th:action="@{/appAdd}" th:object="${app}">
 
+        <label for="nm">App name: </label>
+        <input type="text" th:field="*{name}"/>
+
         <label for="dm">Domain: </label>
         <input type="text" th:field="*{domain}"/>
 

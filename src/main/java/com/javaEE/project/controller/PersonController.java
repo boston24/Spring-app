@@ -99,7 +99,7 @@ public class PersonController {
 
 
     @RequestMapping("person/showApps")
-    public String showApps(@RequestParam String username, @RequestParam(value="name", required = false) String app_name, Model model){
+    public String showApps(@RequestParam String username, @RequestParam(value="app_name", required = false) String app_name, Model model){
         if(app_name==null || app_name==""){
             model.addAttribute("apps", pm.getPersonByUsername(username).getApp_list());
             model.addAttribute("username",username);
