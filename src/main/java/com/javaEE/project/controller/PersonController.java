@@ -1,5 +1,6 @@
 package com.javaEE.project.controller;
 
+import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
@@ -70,58 +71,60 @@ public class PersonController {
     }
 
     @RequestMapping("appAll/selectUserToRemove")
-    public String removeUser(@RequestParam String domain, @RequestParam(value="username", required = false) String username, Model model){
+    public String searchUser(@RequestParam String domain, @RequestParam(value="username", required = false) String username, Model model){
         if(username==null || username==""){
             model.addAttribute("persons", pm.getAllPersonsInApp(domain));
-            log.info("Pokazuje wszystkich");
+            model.addAttribute("domain",domain);
+            return "app-removeUsers";
         }
-        else{
-            if(pm.getPersonByUsername(username)==null){
-                List<Person> empty = new ArrayList<>();
-                model.addAttribute("persons",empty);
-                log.info("Brak wynikow");
-            }
-            else{
+
+        for(Person per : pm.getAllPersonsInApp(domain)){
+            if(per.getUsername().equals(username)){
                 List<Person> out = new ArrayList<>();
                 out.add(pm.getPersonByUsername(username));
                 model.addAttribute("persons", out);
                 log.info("Znalazłem: "+username);
+                model.addAttribute("domain",domain);
+                return "app-removeUsers";
             }
-
         }
+
+        List<Person> empty = new ArrayList<>();
+        model.addAttribute("persons",empty);
+        log.info("Brak wynikow");
         model.addAttribute("domain",domain);
         return "app-removeUsers";
+
     }
 
-    /*@RequestMapping("appAll/selectUserToRemove/search")
-    public String showSearched(@RequestParam String domain, @RequestParam(value="username", required = false) String username, Model model){
 
-        if(pm.getPersonByUsername(username)!=null) {
-            log.info("Znalazłem " + username);
-            model.addAttribute("persons",pm.getPersonByUsername(username));
+    @RequestMapping("person/showApps")
+    public String showApps(@RequestParam String username, @RequestParam(value="name", required = false) String app_name, Model model){
+        if(app_name==null || app_name==""){
+            model.addAttribute("apps", pm.getPersonByUsername(username).getApp_list());
+            model.addAttribute("username",username);
+            log.info("Pokazuje wszystkie aplikacje uzytkownika");
+            return "persons-appList";
         }
-        else{
-            log.info("Nie znalazlem + "+username);
-            List<Person> temp = new ArrayList<>();
-            model.addAttribute("persons",temp);
+
+        for(Application app : pm.getPersonByUsername(username).getApp_list()){
+            if(app.getName().equals(app_name)){
+                List<Application> temp = new ArrayList<>();
+                temp.add(app);
+                model.addAttribute("apps",temp);
+                model.addAttribute("username",username);
+                log.info("Znalazem aplikacje w liscie");
+                return "persons-appList";
+            }
         }
-        model.addAttribute("domain",domain);
-        return "app-searchUser";
-    }
 
-    /*@RequestMapping("appAll/selectUserToRemove")
-    public String showUsers(@RequestParam String domain, @RequestParam(required = false) String username, Model model){
-        model.addAttribute("persons",pm.getAllPersonsInApp(domain));
-        model.addAttribute("domain", domain);
-        model.addAttribute("search", new Person());
-        return "app-removeUsers";
-    }
+        List<Application> empty = new ArrayList<>();
+        model.addAttribute("apps",empty);
+        model.addAttribute("username",username);
+        log.info("Nie znaleziono aplikacji");
+        return "persons-appList";
 
-    @PostMapping("appAll/selectUserToRemove")
-    public String showUserSearched(@Valid Person person, Errors errors, Model model){
-        model.addAttribute("persons",pm.getPersonByUsername(person.getUsername()));
-        return "app-removeUsers";
-    }*/
+    }
 
 
 }

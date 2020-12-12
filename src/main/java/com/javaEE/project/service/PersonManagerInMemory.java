@@ -57,14 +57,17 @@ public class PersonManagerInMemory implements PersonManager {
     public List<Person> getAllPersonsNotInApp(String domain){
         List<Person> temp = new ArrayList<>();
         for(Person per : persons){
+            boolean check = false;
             if(per.getApp_list().isEmpty()) {
                 temp.add(per);
             }
             else{
                 for(Application app : per.getApp_list()){
                     if(app.getDomain().equals(domain)){
-                        continue;
+                        check = true;
                     }
+                }
+                if(check == false){
                     temp.add(per);
                 }
             }

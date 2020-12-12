@@ -14,6 +14,7 @@ public interface ApplicationManager {
     void replace(Application edited);
     void addToUserList(Application app, Person per);
     void removeFromUserList(String domain, Person per);
+    Application findByName(String name);
     List<Application> getAllApplications();
 
 }

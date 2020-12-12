@@ -80,4 +80,14 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         findByDomain(domain).getUser_list().remove(per);
     }
 
+    @Override
+    public Application findByName(String name){
+        for(Application app : applications){
+            if(app.getName().equals(name)){
+                return app;
+            }
+        }
+        return null;
+    }
+
 }
