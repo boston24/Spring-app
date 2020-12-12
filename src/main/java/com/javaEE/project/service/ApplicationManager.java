@@ -13,6 +13,7 @@ public interface ApplicationManager {
     Application findById(String id);
     void replace(Application edited);
     void addToUserList(String domain, Person per);
+    void removeFromUserList(String domain, Person per);
     List<Application> getAllApplications();
 
 }

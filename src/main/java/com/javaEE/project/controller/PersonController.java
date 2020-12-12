@@ -27,9 +27,9 @@ public class PersonController {
 
     @GetMapping("/personAll")
     public String showPersons(Model model){
-        Person p = new Person();
+        /*Person p = new Person();
         p.setUsername("boop");
-        pm.addPerson(p);
+        pm.addPerson(p);*/
         model.addAttribute("persons", pm.getAllPersons());
         return "persons";
     }
@@ -69,6 +69,11 @@ public class PersonController {
         return "app-addUsers";
     }
 
-    //@PostMapping("appAll/addUser")
+    @RequestMapping("appAll/selectUserToRemove")
+    public String removeUser(@RequestParam String domain, Model model){
+        model.addAttribute("persons", pm.getAllPersonsInApp(domain));
+        model.addAttribute("domain",domain);
+        return "app-removeUsers";
+    }
 
 }

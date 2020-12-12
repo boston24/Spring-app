@@ -78,9 +78,19 @@ public class ApplicationController {
     @RequestMapping("appAll/addUser")
     public String addPersonToApp(@RequestParam String domain, @RequestParam String username){
         Person p = pm.getPersonByUsername(username);
+        Application app = am.findByDomain(domain);
+        pm.addAppToAppList(app,p);
         am.addToUserList(domain,p);
-        log.info("Dodano osobe "+p+"do domeny: "+domain);
-        return "home";
+        return "redirect:/";
+    }
+
+    @RequestMapping("appAll/removeUser")
+    public String removePersonFromApp(@RequestParam String domain, @RequestParam String username){
+        Person p = pm.getPersonByUsername(username);
+        Application app = am.findByDomain(domain);
+        am.removeFromUserList(domain,p);
+        pm.removeAppFromList(app,p);
+        return "redirect:/";
     }
 
 
