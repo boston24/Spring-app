@@ -152,9 +152,9 @@ public class PersonManagerInMemory implements PersonManager {
     }
 
     @Override
-    public boolean isUsernameTaken(String username){
+    public boolean isUsernameTaken(Person newbie){
         for(Person per : persons){
-            if(per.getUsername().equals(username)){
+            if(per.getUsername().equals(newbie.getUsername()) && !per.getId().equals(newbie.getId())){
                 return true;
             }
         }
@@ -162,9 +162,9 @@ public class PersonManagerInMemory implements PersonManager {
     }
 
     @Override
-    public boolean isEmailTaken(String email){
+    public boolean isEmailTaken(Person newbie){
         for(Person per : persons){
-            if(per.getEmail().equals(email)){
+            if(per.getEmail().equals(newbie.getEmail()) && !per.getId().equals(newbie.getId())){
                 return true;
             }
         }

@@ -43,7 +43,15 @@ public class PersonController {
     @PostMapping("/personAll/edit")
     public String editPersonHelper(@Valid Person person, Errors errors){
         if(errors.hasErrors()){
-            return "redirect:/";
+            return "persons-edit";
+        }
+        if(pm.isUsernameTaken(person)==true){
+            errors.rejectValue("username","error.person","Username taken");
+            return "persons-edit";
+        }
+        if(pm.isEmailTaken(person)==true){
+            errors.rejectValue("email","error.person","Email taken");
+            return "persons-edit";
         }
         pm.replace(person);
         log.info("Lista aplikacji po edycji osoby: ");
@@ -65,11 +73,11 @@ public class PersonController {
         if(errors.hasErrors()){
             return "person-add";
         }
-        if(pm.isUsernameTaken(person.getUsername())==true){
+        if(pm.isUsernameTaken(person)==true){
             errors.rejectValue("username","error.person","Username taken");
             return "person-add";
         }
-        if(pm.isEmailTaken(person.getEmail())==true){
+        if(pm.isEmailTaken(person)==true){
             errors.rejectValue("email","error.person","Email taken");
             return "person-add";
         }

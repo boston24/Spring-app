@@ -13,34 +13,76 @@
         </head>
 <body>
 
-<h1>Uzytkownik: <span th:text="${person.username}"></span></h1>
+    <h1>Uzytkownik: <span th:text="${person.username}"></span></h1>
 
-<form method="post" th:action="@{/personAll/edit}" th:object="${person}">
+    <form method="post" th:action="@{/personAll/edit}" th:object="${person}">
 
-    <label for="fn">First name: </label>
-    <input type="text" value="${person.first_name}" th:field="*{first_name}"/>
+        <div th:if="${#fields.hasErrors()}">
+              <span class="validationError">
+                 Please correct the problems below and resubmit.
+              </span>
+        </div>
 
-    <label for="ln">Last name: </label>
-    <input type="text" value="${person.last_name}" th:field="*{last_name}"/>
+        <label for="fn">First name: </label>
+        <input type="text" value="${person.first_name}" th:field="*{first_name}"/>
 
-    <label for="em">Email: </label>
-    <input type="text" value="${person.email}" th:field="*{email}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('first_name')}"
+              th:errors="*{first_name}">First name Error
+            </span>
+        <br/>
 
-    <label for="ct">Country: </label>
-    <input type="text" value="${person.country}" th:field="*{country}"/>
+        <label for="ln">Last name: </label>
+        <input type="text" value="${person.last_name}" th:field="*{last_name}"/>
 
-    <label for="fn">Username: </label>
-    <input type="text" value="${person.username}" th:field="*{username}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('last_name')}"
+              th:errors="*{last_name}">Last name Error
+            </span>
+        <br/>
 
-    <label for="ln">Password: </label>
-    <input type="text" value="${person.password}" th:field="*{password}"/>
+        <label for="em">Email: </label>
+        <input type="text" value="${person.email}" th:field="*{email}"/>
 
-    <label for="id" hidden>Id: </label>
-    <input value="${person.id}" th:field="*{id}" hidden/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}">Email Error
+            </span>
+        <br/>
 
-    <input type="submit" value="Submit"/>
+        <label for="ct">Country: </label>
+        <input type="text" value="${person.country}" th:field="*{country}"/>
 
-</form>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('country')}"
+              th:errors="*{country}">Country Error
+            </span>
+        <br/>
+
+        <label for="fn">Username: </label>
+        <input type="text" value="${person.username}" th:field="*{username}"/>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}">Username Error
+            </span>
+        <br/>
+
+        <label for="ln">Password: </label>
+        <input type="text" value="${person.password}" th:field="*{password}"/>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}">Password Error
+            </span>
+        <br/>
+
+        <label for="id" hidden>Id: </label>
+        <input value="${person.id}" th:field="*{id}" hidden/>
+
+        <input type="submit" value="Submit"/>
+
+    </form>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
