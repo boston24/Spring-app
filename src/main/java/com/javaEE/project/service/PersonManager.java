@@ -9,12 +9,14 @@ public interface PersonManager {
     void addPerson(Person person);
     void deletePersonById(String id);
     void deletePersonByUsername(String username);
-    List<Person> getAllPersonsNotInApp(String domain);
+    List<Person> getAllPersonsNotInApp(String id);
     Person getPersonByUsername(String username);
     void addAppToAppList(Application app, Person p);
-    List<Person> getAllPersonsInApp(String domain);
+    List<Person> getAllPersonsInApp(String id);
     void removeAppFromList(Application app, Person p);
     void replace(Person edited);
+    Person getPersonById(String id);
+    //void replaceInList(Application application);
     List<Person> getAllPersons();
 
 }

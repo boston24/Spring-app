@@ -43,8 +43,8 @@
                     <td th:text="${person.password}"></td>
 
                     <td><a th:href="@{/personDelete(username=${person.username})}">Delete</a>
-                        <a th:href="@{/personAll/edit(username=${person.username})}">Edit</a>
-                        <a th:href="@{/person/showApps(username=${person.username})}">Aplikacje</a>
+                        <a th:href="@{/personAll/edit(id=${person.id})}">Edit</a>
+                        <a th:href="@{/person/showApps(id=${person.id})}">Aplikacje</a>
                     </td>
 
                 </tr>

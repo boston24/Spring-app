@@ -27,6 +27,16 @@ public class PersonManagerInMemory implements PersonManager {
     }
 
     @Override
+    public Person getPersonById(String id){
+        for(Person per : persons){
+            if(per.getId().equals(id)){
+                return per;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void deletePersonById(String id){
         Person personToRemove = null;
         for(Person person: persons){
@@ -80,7 +90,7 @@ public class PersonManagerInMemory implements PersonManager {
     public void replace(Person edited){
         for(Person per : persons){
             if(per.getId().equals(edited.getId())){
-                edited.setApp_list(edited.getApp_list());
+                edited.setApp_list(per.getApp_list());
                 persons.set(persons.indexOf(per),edited);
             }
         }
@@ -128,5 +138,16 @@ public class PersonManagerInMemory implements PersonManager {
     public void removeAppFromList(Application app, Person p){
         p.getApp_list().remove(app);
     }
+
+    /*@Override
+    public void replaceInList(Application application){
+        for(Person per : application.getUser_list()){
+            for(Application app : per.getApp_list()){
+                if(app.getId().equals(application.getId())){
+                    app = application;
+                }
+            }
+        }
+    }*/
 
 }

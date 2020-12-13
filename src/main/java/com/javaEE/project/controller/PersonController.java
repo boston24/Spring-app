@@ -36,8 +36,8 @@ public class PersonController {
     }
 
     @GetMapping("/personAll/edit")
-    public String editPerson(@RequestParam String username, Model model){
-        model.addAttribute("person", pm.getPersonByUsername(username));
+    public String editPerson(@RequestParam String id, Model model){
+        model.addAttribute("person", pm.getPersonById(id));
         return "persons-edit";
     }
 
@@ -47,6 +47,10 @@ public class PersonController {
             return "redirect:/";
         }
         pm.replace(person);
+        log.info("Lista aplikacji po edycji osoby: ");
+        for(Application app : person.getApp_list()){
+            log.info(app.getDomain());
+        }
 
         return "redirect:/";
     }
@@ -80,27 +84,27 @@ public class PersonController {
     }
 
     @RequestMapping("appAll/selectUser")
-    public String addUser(@RequestParam String domain, Model model){
-        model.addAttribute("persons",pm.getAllPersonsNotInApp(domain));
-        model.addAttribute("domain",domain);
+    public String addUser(@RequestParam String id, Model model){
+        model.addAttribute("persons",pm.getAllPersonsNotInApp(id));
+        model.addAttribute("id",id);
         return "app-addUsers";
     }
 
     @RequestMapping("appAll/selectUserToRemove")
-    public String searchUser(@RequestParam String domain, @RequestParam(value="username", required = false) String username, Model model){
+    public String searchUser(@RequestParam String id, @RequestParam(value="username", required = false) String username, Model model){
         if(username==null || username==""){
-            model.addAttribute("persons", pm.getAllPersonsInApp(domain));
-            model.addAttribute("domain",domain);
+            model.addAttribute("persons", pm.getAllPersonsInApp(id));
+            model.addAttribute("id",id);
             return "app-removeUsers";
         }
 
-        for(Person per : pm.getAllPersonsInApp(domain)){
+        for(Person per : pm.getAllPersonsInApp(id)){
             if(per.getUsername().equals(username)){
                 List<Person> out = new ArrayList<>();
                 out.add(pm.getPersonByUsername(username));
                 model.addAttribute("persons", out);
                 log.info("Znalazłem: "+username);
-                model.addAttribute("domain",domain);
+                model.addAttribute("id",id);
                 return "app-removeUsers";
             }
         }
@@ -108,27 +112,27 @@ public class PersonController {
         List<Person> empty = new ArrayList<>();
         model.addAttribute("persons",empty);
         log.info("Brak wynikow");
-        model.addAttribute("domain",domain);
+        model.addAttribute("id",id);
         return "app-removeUsers";
 
     }
 
 
     @RequestMapping("person/showApps")
-    public String showApps(@RequestParam String username, @RequestParam(value="app_name", required = false) String app_name, Model model){
+    public String showApps(@RequestParam String id, @RequestParam(value="app_name", required = false) String app_name, Model model){
         if(app_name==null || app_name==""){
-            model.addAttribute("apps", pm.getPersonByUsername(username).getApp_list());
-            model.addAttribute("username",username);
+            model.addAttribute("apps", am.getAllAppsInUser(id));
+            model.addAttribute("id",id);
             log.info("Pokazuje wszystkie aplikacje uzytkownika");
             return "persons-appList";
         }
 
-        for(Application app : pm.getPersonByUsername(username).getApp_list()){
+        for(Application app : pm.getPersonById(id).getApp_list()){
             if(app.getName().equals(app_name)){
                 List<Application> temp = new ArrayList<>();
                 temp.add(app);
                 model.addAttribute("apps",temp);
-                model.addAttribute("username",username);
+                model.addAttribute("id",id);
                 log.info("Znalazem aplikacje w liscie");
                 return "persons-appList";
             }
@@ -136,7 +140,7 @@ public class PersonController {
 
         List<Application> empty = new ArrayList<>();
         model.addAttribute("apps",empty);
-        model.addAttribute("username",username);
+        model.addAttribute("id",id);
         log.info("Nie znaleziono aplikacji");
         return "persons-appList";
 

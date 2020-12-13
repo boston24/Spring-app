@@ -32,9 +32,9 @@ public class ApplicationController {
         return "apps";
     }
 
-    @RequestMapping("/appAll/edit")
-    public String editApp(@RequestParam String domain, Model model){
-        model.addAttribute("app",am.findByDomain(domain));
+    @GetMapping("/appAll/edit")
+    public String editApp(@RequestParam String id, Model model){
+        model.addAttribute("app",am.findById(id));
         return "app-edit";
     }
 
@@ -44,6 +44,10 @@ public class ApplicationController {
             return "redirect:/";
         }
         am.replace(application);
+        //pm.replaceInList(application);
+        for(Person per : application.getUser_list()){
+            log.info("Username " + per.getUsername());
+        }
         return "redirect:/";
     }
 
@@ -69,9 +73,9 @@ public class ApplicationController {
     }
 
     @RequestMapping("appAll/addUser")
-    public String addPersonToApp(@RequestParam String domain, @RequestParam String username){
-        Person p = pm.getPersonByUsername(username);
-        Application app = am.findByDomain(domain);
+    public String addPersonToApp(@RequestParam(value = "id") String id_app, @RequestParam(value = "perid") String id_per){
+        Person p = pm.getPersonById(id_per);
+        Application app = am.findById(id_app);
         pm.addAppToAppList(app,p);
         am.addToUserList(app,p);
         return "redirect:/";

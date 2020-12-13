@@ -16,5 +16,6 @@ public interface ApplicationManager {
     void removeFromUserList(String domain, Person per);
     Application findByName(String name);
     List<Application> getAllApplications();
+    List<Application> getAllAppsInUser(String id);
 
 }

@@ -90,4 +90,22 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         return null;
     }
 
+    @Override
+    public List<Application> getAllAppsInUser(String id){
+        List<Application> temp = new ArrayList<>();
+        for(Application app : applications){
+            if(app.getUser_list().isEmpty()){
+                continue;
+            }
+            else{
+                for(Person per : app.getUser_list()){
+                    if(per.getId().equals(id)){
+                        temp.add(app);
+                    }
+                }
+            }
+        }
+        return temp;
+    }
+
 }

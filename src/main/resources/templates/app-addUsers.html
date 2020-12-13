@@ -41,8 +41,8 @@
                 <td th:text="${person.country}"></td>
                 <td th:text="${person.username}"></td>
 
-                <div th:with="domain=${domain}">
-                    <td><a th:href="@{/appAll/addUser(domain=${domain},username=${person.username})}">Add</a></td>
+                <div th:with="id=${id}">
+                    <td><a th:href="@{/appAll/addUser(id=${id},perid=${person.id})}">Add</a></td>
                 </div>
 
             </tr>

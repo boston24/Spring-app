@@ -35,9 +35,9 @@
 
                     <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
                         <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#users">Pokaż użytkowników</button>-->
-                        <a th:href="@{/appAll/selectUser(domain=${app.domain})}">Dodaj użytkowników</a>
-                        <a th:href="@{/appAll/selectUserToRemove(domain=${app.domain})}">Zobacz użytkowników</a>
-                        <a th:href="@{/appAll/edit(domain=${app.domain})}">Edytuj</a>
+                        <a th:href="@{/appAll/selectUser(id=${app.id})}">Dodaj użytkowników</a>
+                        <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">Zobacz użytkowników</a>
+                        <a th:href="@{/appAll/edit(id=${app.id})}">Edytuj</a>
                     </td>
 <!-- MODAL --------------------------------------------------------------------------------------------------------------------------------------------------------
                         <div class="modal fade" id="users" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
