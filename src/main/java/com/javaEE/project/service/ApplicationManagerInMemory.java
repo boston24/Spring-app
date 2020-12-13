@@ -122,4 +122,26 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         return out;
     }
 
+    @Override
+    public boolean isDomainTaken(Application newApp){
+        for(Application app : applications){
+            if(app.getDomain().equals(newApp.getDomain()) && !app.getId().equals(newApp.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isAppNameTaken(Application newApp){
+        for(Application app : applications){
+            if(app.getName().equals(newApp.getName()) && !app.getId().equals(newApp.getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
 }

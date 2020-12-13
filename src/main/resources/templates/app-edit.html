@@ -9,18 +9,36 @@
 </head>
 <body>
 
-    <h1>Domena: <span th:text="${app.domain}"></span></h1>
+    <h1>Domena: <span th:text="${application.domain}"></span></h1>
 
-    <form method="post" th:action="@{/appAll/edit}" th:object="${app}">
+    <form method="post" th:action="@{/appAll/edit}" th:object="${application}">
 
-        <label for="nm">Name: </label>
-        <input type="text" value="${app.name}" th:field="*{name}"/>
+        <div th:if="${#fields.hasErrors()}">
+          <span class="validationError">
+             Please correct the problems below and resubmit.
+          </span>
+        </div>
+
+        <label for="nm">App Name: </label>
+        <input type="text" value="${application.name}" th:field="*{name}"/>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">App Name Error
+        </span>
+        <br/>
 
         <label for="dm">Domain: </label>
-        <input type="text" value="${app.domain}" th:field="*{domain}"/>
+        <input type="text" value="${application.domain}" th:field="*{domain}"/>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('domain')}"
+              th:errors="*{domain}">Domain Error
+        </span>
+        <br/>
 
         <label for="id" hidden>Id: </label>
-        <input value="${app.id}" th:field="*{id}" hidden/>
+        <input value="${application.id}" th:field="*{id}" hidden/>
 
         <input type="submit" value="Submit"/>
 

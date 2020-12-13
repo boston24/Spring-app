@@ -11,13 +11,31 @@
 
     <h1>Dodaj aplikację</h1>
 
-    <form method="post" th:action="@{/appAdd}" th:object="${app}">
+    <form method="post" th:action="@{/appAdd}" th:object="${application}">
+
+        <!--<div th:if="${#fields.hasErrors()}">
+          <span class="validationError">
+             Please correct the problems below and resubmit.
+          </span>
+        </div>-->
 
         <label for="nm">App name: </label>
         <input type="text" th:field="*{name}"/>
 
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">App Name Error
+        </span>
+        <br/>
+
         <label for="dm">Domain: </label>
         <input type="text" th:field="*{domain}"/>
+
+        <span class="validationError"
+              th:if="${#fields.hasErrors('domain')}"
+              th:errors="*{domain}">Domain Error
+        </span>
+        <br/>
 
         <input type="submit" value="Submit"/>
 

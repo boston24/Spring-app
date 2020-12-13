@@ -34,26 +34,30 @@ public class ApplicationController {
 
     @GetMapping("/appAll/edit")
     public String editApp(@RequestParam String id, Model model){
-        model.addAttribute("app",am.findById(id));
+        model.addAttribute("application",am.findById(id));
         return "app-edit";
     }
 
     @PostMapping("/appAll/edit")
     public String editAppHelp(@Valid Application application, Errors errors){
         if(errors.hasErrors()){
-            return "redirect:/";
+            return "app-edit";
+        }
+        if(am.isAppNameTaken(application)){
+            errors.rejectValue("name","error.application","App name taken");
+            return "app-edit";
+        }
+        if(am.isDomainTaken(application)){
+            errors.rejectValue("domain","error.application","Domain taken");
+            return "app-edit";
         }
         am.replace(application);
-        //pm.replaceInList(application);
-        for(Person per : application.getUser_list()){
-            log.info("Username " + per.getUsername());
-        }
         return "redirect:/";
     }
 
     @GetMapping("/appAdd")
     public String createApp(Model model){
-        model.addAttribute("app", new Application());
+        model.addAttribute("application", new Application());
         return "apps-add";
     }
 
@@ -62,7 +66,16 @@ public class ApplicationController {
         if(errors.hasErrors()){
             return "apps-add";
         }
+        if(am.isAppNameTaken(application)){
+            errors.rejectValue("name","error.application","Domain taken");
+            return "apps-add";
+        }
+        if(am.isDomainTaken(application)){
+            errors.rejectValue("domain","error.application","App name taken");
+            return "apps-add";
+        }
         am.addApplication(application);
+        log.info("App created: "+application);
         return "redirect:/";
     }
 

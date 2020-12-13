@@ -19,5 +19,7 @@ public interface ApplicationManager {
     List<Application> getAllApplications();
     Map<String,Integer> getUserCountryData(String id);
     List<Application> getAllAppsInUser(String id);
+    boolean isDomainTaken(Application newApp);
+    boolean isAppNameTaken(Application newApp);
 
 }

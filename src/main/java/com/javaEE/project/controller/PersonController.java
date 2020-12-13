@@ -45,20 +45,15 @@ public class PersonController {
         if(errors.hasErrors()){
             return "persons-edit";
         }
-        if(pm.isUsernameTaken(person)==true){
+        if(pm.isUsernameTaken(person)){
             errors.rejectValue("username","error.person","Username taken");
             return "persons-edit";
         }
-        if(pm.isEmailTaken(person)==true){
+        if(pm.isEmailTaken(person)){
             errors.rejectValue("email","error.person","Email taken");
             return "persons-edit";
         }
         pm.replace(person);
-        log.info("Lista aplikacji po edycji osoby: ");
-        for(Application app : person.getApp_list()){
-            log.info(app.getDomain());
-        }
-
         return "redirect:/";
     }
 
@@ -73,11 +68,11 @@ public class PersonController {
         if(errors.hasErrors()){
             return "person-add";
         }
-        if(pm.isUsernameTaken(person)==true){
+        if(pm.isUsernameTaken(person)){
             errors.rejectValue("username","error.person","Username taken");
             return "person-add";
         }
-        if(pm.isEmailTaken(person)==true){
+        if(pm.isEmailTaken(person)){
             errors.rejectValue("email","error.person","Email taken");
             return "person-add";
         }
