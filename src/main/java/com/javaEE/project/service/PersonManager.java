@@ -17,6 +17,7 @@ public interface PersonManager {
     void replace(Person edited);
     Person getPersonById(String id);
     //void replaceInList(Application application);
+    List<String> getAppNames(String id);
     List<Person> getAllPersons();
 
 }

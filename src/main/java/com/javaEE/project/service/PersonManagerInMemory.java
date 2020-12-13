@@ -26,6 +26,7 @@ public class PersonManagerInMemory implements PersonManager {
         return persons;
     }
 
+
     @Override
     public Person getPersonById(String id){
         for(Person per : persons){
@@ -47,6 +48,17 @@ public class PersonManagerInMemory implements PersonManager {
         if(personToRemove != null){
             persons.remove(personToRemove);
         }
+    }
+
+    @Override
+    public List<String> getAppNames(String id){
+        List<String> out = new ArrayList<>();
+        for(Person per : persons){
+            for(Application app : per.getApp_list()){
+                out.add(app.getName());
+            }
+        }
+        return out;
     }
 
     @Override
