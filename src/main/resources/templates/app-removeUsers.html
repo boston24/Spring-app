@@ -18,7 +18,7 @@
 
         <label for="search">Username: </label>
         <input type="text" th:name="username" th:placeholder="Username"/>
-        <input type="text" value="${domain}" hidden th:value="${domain}" name="domain"/>
+        <input type="text" value="${id}" hidden th:value="${id}" name="id"/>
         <input type="submit" value="Szukaj"/>
 
     </form>
@@ -49,8 +49,8 @@
                     <td th:text="${person.country}"></td>
                     <td th:text="${person.username}"></td>
 
-                    <div th:with="domain=${domain}">
-                        <td><a th:href="@{/appAll/removeUser(domain=${domain},username=${person.username})}">Usuń</a></td>
+                    <div th:with="id=${id}">
+                        <td><a th:href="@{/appAll/removeUser(id=${id},username=${person.username})}">Usuń</a></td>
                     </div>
 
                 </tr>

@@ -54,7 +54,7 @@ public class PersonManagerInMemory implements PersonManager {
 
 
     @Override
-    public List<Person> getAllPersonsNotInApp(String domain){
+    public List<Person> getAllPersonsNotInApp(String id){
         List<Person> temp = new ArrayList<>();
         for(Person per : persons){
             boolean check = false;
@@ -63,7 +63,7 @@ public class PersonManagerInMemory implements PersonManager {
             }
             else{
                 for(Application app : per.getApp_list()){
-                    if(app.getDomain().equals(domain)){
+                    if(app.getId().equals(id)){
                         check = true;
                     }
                 }
@@ -77,7 +77,17 @@ public class PersonManagerInMemory implements PersonManager {
     }
 
     @Override
-    public List<Person> getAllPersonsInApp(String domain){
+    public void replace(Person edited){
+        for(Person per : persons){
+            if(per.getId().equals(edited.getId())){
+                edited.setApp_list(edited.getApp_list());
+                persons.set(persons.indexOf(per),edited);
+            }
+        }
+    }
+
+    @Override
+    public List<Person> getAllPersonsInApp(String id){
         List<Person> temp = new ArrayList<>();
         for(Person per : persons){
             if(per.getApp_list().isEmpty()) {
@@ -85,7 +95,7 @@ public class PersonManagerInMemory implements PersonManager {
             }
             else{
                 for(Application app : per.getApp_list()){
-                    if(app.getDomain().equals(domain)){
+                    if(app.getId().equals(id)){
                         temp.add(per);
                     }
                 }

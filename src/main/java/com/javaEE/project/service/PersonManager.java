@@ -14,6 +14,7 @@ public interface PersonManager {
     void addAppToAppList(Application app, Person p);
     List<Person> getAllPersonsInApp(String domain);
     void removeAppFromList(Application app, Person p);
+    void replace(Person edited);
     List<Person> getAllPersons();
 
 }

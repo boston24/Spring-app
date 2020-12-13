@@ -35,6 +35,22 @@ public class PersonController {
         return "persons";
     }
 
+    @GetMapping("/personAll/edit")
+    public String editPerson(@RequestParam String username, Model model){
+        model.addAttribute("person", pm.getPersonByUsername(username));
+        return "persons-edit";
+    }
+
+    @PostMapping("/personAll/edit")
+    public String editPersonHelper(@Valid Person person, Errors errors){
+        if(errors.hasErrors()){
+            return "redirect:/";
+        }
+        pm.replace(person);
+
+        return "redirect:/";
+    }
+
     @GetMapping("/personAdd")
     public String createPerson(Model model){
         model.addAttribute("person", new Person());
