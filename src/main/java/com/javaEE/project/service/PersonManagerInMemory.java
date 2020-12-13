@@ -151,6 +151,25 @@ public class PersonManagerInMemory implements PersonManager {
         p.getApp_list().remove(app);
     }
 
+    @Override
+    public boolean isUsernameTaken(String username){
+        for(Person per : persons){
+            if(per.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isEmailTaken(String email){
+        for(Person per : persons){
+            if(per.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

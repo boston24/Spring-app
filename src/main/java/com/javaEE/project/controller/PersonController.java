@@ -65,6 +65,14 @@ public class PersonController {
         if(errors.hasErrors()){
             return "person-add";
         }
+        if(pm.isUsernameTaken(person.getUsername())==true){
+            errors.rejectValue("username","error.person","Username taken");
+            return "person-add";
+        }
+        if(pm.isEmailTaken(person.getEmail())==true){
+            errors.rejectValue("email","error.person","Email taken");
+            return "person-add";
+        }
         pm.addPerson(person);
         log.info("Person created: " + person);
         return "redirect:/";
@@ -75,11 +83,6 @@ public class PersonController {
         pm.deletePersonByUsername(username);
         log.info("Deleted person: "+ username);
         return "redirect:/";
-    }
-
-    @GetMapping("/addUsersToApp")
-    public String addToApp(@RequestParam String domain){
-        return "poop";
     }
 
     @RequestMapping("appAll/selectUser")

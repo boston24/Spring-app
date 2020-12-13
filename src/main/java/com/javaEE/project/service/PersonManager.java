@@ -18,5 +18,7 @@ public interface PersonManager {
     Person getPersonById(String id);
     List<String> getAppNames(String id);
     List<Person> getAllPersons();
+    boolean isEmailTaken(String email);
+    boolean isUsernameTaken(String username);
 
 }
