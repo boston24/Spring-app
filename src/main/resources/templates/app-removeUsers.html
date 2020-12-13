@@ -35,7 +35,6 @@
             <table>
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Last name</th>
                     <th>Email</th>
@@ -47,7 +46,6 @@
                 </thead>
                 <tbody>
                 <tr th:each="person : ${persons}">
-                    <td th:text="${person.id}"></td>
                     <td th:text="${person.first_name}"></td>
                     <td th:text="${person.last_name}"></td>
                     <td th:text="${person.email}"></td>
@@ -68,25 +66,8 @@
     <div class="chart-container">
         <canvas id="myChart"></canvas>
 
-
-    <!--<div id="container" style="width: 500px; height: 400px;">-->
-
-
         <script th:inline="javascript">
             /*<![CDATA[*/
-
-            /*anychart.onDocumentReady(function() {
-
-            var data = [[${data}]];
-            console.log(data);
-
-            var chart = anychart.pie();
-            chart.title("Population by Race for the United States: 2010 Census");
-            chart.data(data);
-            chart.container('container');
-            chart.draw();
-
-            });*/
 
             var data = [[${data}]];
             console.log(data);

@@ -63,7 +63,7 @@ public class PersonController {
     @PostMapping("/personAdd")
     public String addCreated(@Valid Person person, Errors errors){
         if(errors.hasErrors()){
-            return "persons-add";
+            return "person-add";
         }
         pm.addPerson(person);
         log.info("Person created: " + person);
