@@ -16,7 +16,6 @@ public interface PersonManager {
     void removeAppFromList(Application app, Person p);
     void replace(Person edited);
     Person getPersonById(String id);
-    //void replaceInList(Application application);
     List<String> getAppNames(String id);
     List<Person> getAllPersons();
 

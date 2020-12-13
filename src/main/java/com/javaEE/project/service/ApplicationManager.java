@@ -4,6 +4,7 @@ import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ApplicationManager {
 
@@ -16,6 +17,7 @@ public interface ApplicationManager {
     void removeFromUserList(String domain, Person per);
     Application findByName(String name);
     List<Application> getAllApplications();
+    Map<String,Integer> getUserCountryData(String id);
     List<Application> getAllAppsInUser(String id);
 
 }

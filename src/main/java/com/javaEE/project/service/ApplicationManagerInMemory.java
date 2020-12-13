@@ -108,4 +108,18 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         return temp;
     }
 
+    @Override
+    public Map<String,Integer> getUserCountryData(String id){
+        Map<String, Integer> out = new HashMap<>();
+        for(Person per : findById(id).getUser_list()){
+            if(out.containsKey(per.getCountry())){
+                out.put(per.getCountry(),out.get(per.getCountry())+1);
+            }
+            else{
+                out.put(per.getCountry(),1);
+            }
+        }
+        return out;
+    }
+
 }
