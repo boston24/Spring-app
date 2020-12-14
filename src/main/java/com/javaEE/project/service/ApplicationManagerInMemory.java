@@ -17,6 +17,14 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     public List<Application> getAllApplications(){ return applications; }
 
     @Override
+    public void loadData(List<Application> data){
+        for(Application app : data){
+            //log.info("Dodaje aplikacje: " + app);
+            applications.add(app);
+        }
+    }
+
+    @Override
     public void addApplication(Application application){
         application.setId(UUID.randomUUID().toString());
         applications.add(application);

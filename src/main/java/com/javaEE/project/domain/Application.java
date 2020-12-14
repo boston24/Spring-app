@@ -1,5 +1,6 @@
 package com.javaEE.project.domain;
 
+import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +16,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Application {
 
+    @CsvBindByName
     private String id;
 
+    @CsvBindByName(column = "Aplication name")
     @NotNull(message = "App name is required")
     @Size(min = 1, message = "Name is required")
     private String name;
 
+    @CsvBindByName(column = "Domain name")
     @NotNull(message = "Domain is required")
     @Size(min = 1, message = "Domain is required")
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", message = "Wrong format")

@@ -21,5 +21,6 @@ public interface ApplicationManager {
     List<Application> getAllAppsInUser(String id);
     boolean isDomainTaken(Application newApp);
     boolean isAppNameTaken(Application newApp);
+    void loadData(List<Application> data);
 
 }

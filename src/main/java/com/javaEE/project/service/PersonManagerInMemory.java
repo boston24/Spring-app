@@ -16,6 +16,14 @@ public class PersonManagerInMemory implements PersonManager {
     private static final List<Person> persons = new ArrayList<>();
 
     @Override
+    public void loadData(List<Person> data){
+        for(Person person : data){
+            //log.info("Dodaje uzytkownika: " + person);
+            persons.add(person);
+        }
+    }
+
+    @Override
     public void addPerson(Person person){
         person.setId(UUID.randomUUID().toString());
         persons.add(person);
@@ -170,6 +178,5 @@ public class PersonManagerInMemory implements PersonManager {
         }
         return false;
     }
-
 
 }

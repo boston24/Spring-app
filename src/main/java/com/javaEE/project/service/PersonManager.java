@@ -20,5 +20,6 @@ public interface PersonManager {
     List<Person> getAllPersons();
     boolean isEmailTaken(Person person);
     boolean isUsernameTaken(Person person);
+    void loadData(List<Person> data);
 
 }
