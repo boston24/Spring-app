@@ -1,0 +1,31 @@
+#main{
+    /*background-image: linear-gradient(navy,skyblue);*/
+    background-color: #2DA8D8FF;
+    font-family: 'Hammersmith One', sans-serif;
+    font-size: 2vh;
+    max-width: 1920px;
+    color: #2A2B2DFF;
+}
+
+#hp_link h4{
+    background-image: linear-gradient(transparent calc(65% - 5px),#D9514EFF 5px);
+    background-size: 0;
+    background-repeat: no-repeat;
+    display: inline;
+    -webkit-transition: 0.5s ease;
+    transition: 0.5s ease;
+}
+#hp_link:hover h4{
+    background-size: 100%;
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+a:hover
+{
+    color: inherit;
+    text-decoration: inherit;
+}
