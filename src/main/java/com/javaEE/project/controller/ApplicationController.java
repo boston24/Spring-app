@@ -39,7 +39,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/appAll/edit")
-    public String editAppHelp(@Valid Application application, Errors errors){
+    public String editAppHelp(@Valid Application application, Errors errors, Model model){
         if(errors.hasErrors()){
             return "app-edit";
         }
@@ -52,7 +52,8 @@ public class ApplicationController {
             return "app-edit";
         }
         am.replace(application);
-        return "redirect:/";
+        model.addAttribute("apps",am.getAllApplications());
+        return "apps";
     }
 
     @GetMapping("/appAdd")
@@ -80,27 +81,32 @@ public class ApplicationController {
     }
 
     @RequestMapping("/appDelete")
-    public String deletePerson(@RequestParam String domain){
+    public String deletePerson(@RequestParam String domain, Model model){
         am.deleteApplicationByDomain(domain);
-        return "redirect:/";
+        model.addAttribute("apps",am.getAllApplications());
+        return "apps";
     }
 
     @RequestMapping("appAll/addUser")
-    public String addPersonToApp(@RequestParam(value = "id") String id_app, @RequestParam(value = "perid") String id_per){
+    public String addPersonToApp(@RequestParam(value = "id") String id_app, @RequestParam(value = "perid") String id_per, Model model){
         Person p = pm.getPersonById(id_per);
         Application app = am.findById(id_app);
         pm.addAppToAppList(app,p);
         am.addToUserList(app,p);
-        return "redirect:/";
+        model.addAttribute("persons",pm.getAllPersonsNotInApp(id_app));
+        model.addAttribute("id",id_app);
+        return "app-addUsers";
     }
 
     @RequestMapping("appAll/removeUser")
-    public String removePersonFromApp(@RequestParam String domain, @RequestParam String username){
+    public String removePersonFromApp(@RequestParam String id, @RequestParam String username, Model model){
         Person p = pm.getPersonByUsername(username);
-        Application app = am.findByDomain(domain);
-        am.removeFromUserList(domain,p);
+        Application app = am.findById(id);
+        am.removeFromUserList(id,p);
         pm.removeAppFromList(app,p);
-        return "redirect:/";
+        model.addAttribute("persons",pm.getAllPersonsInApp(id));
+        model.addAttribute("id",id);
+        return "app-removeUsers";
     }
 
 

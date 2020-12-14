@@ -41,7 +41,7 @@ public class PersonController {
     }
 
     @PostMapping("/personAll/edit")
-    public String editPersonHelper(@Valid Person person, Errors errors){
+    public String editPersonHelper(@Valid Person person, Errors errors, Model model){
         if(errors.hasErrors()){
             return "persons-edit";
         }
@@ -54,7 +54,8 @@ public class PersonController {
             return "persons-edit";
         }
         pm.replace(person);
-        return "redirect:/";
+        model.addAttribute("persons",pm.getAllPersons());
+        return "persons";
     }
 
     @GetMapping("/personAdd")

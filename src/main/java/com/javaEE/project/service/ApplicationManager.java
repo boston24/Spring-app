@@ -14,7 +14,7 @@ public interface ApplicationManager {
     Application findById(String id);
     void replace(Application edited);
     void addToUserList(Application app, Person per);
-    void removeFromUserList(String domain, Person per);
+    void removeFromUserList(String id, Person per);
     Application findByName(String name);
     List<Application> getAllApplications();
     Map<String,Integer> getUserCountryData(String id);

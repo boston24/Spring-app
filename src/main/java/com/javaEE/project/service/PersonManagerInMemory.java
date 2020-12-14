@@ -18,8 +18,10 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void loadData(List<Person> data){
         for(Person person : data){
-            //log.info("Dodaje uzytkownika: " + person);
-            persons.add(person);
+            if(isEmailTaken(person)==false && isUsernameTaken(person)==false){
+                //log.info("Dodaje uzytkownika: " + person);
+                persons.add(person);
+            }
         }
     }
 

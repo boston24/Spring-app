@@ -19,8 +19,10 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     @Override
     public void loadData(List<Application> data){
         for(Application app : data){
-            //log.info("Dodaje aplikacje: " + app);
-            applications.add(app);
+            if(isAppNameTaken(app)==false && isDomainTaken(app)==false){
+                //log.info("Dodaje aplikacje: " + app);
+                applications.add(app);
+            }
         }
     }
 
@@ -84,8 +86,8 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     }
 
     @Override
-    public void removeFromUserList(String domain, Person per){
-        findByDomain(domain).getUser_list().remove(per);
+    public void removeFromUserList(String id, Person per){
+        findById(id).getUser_list().remove(per);
     }
 
     @Override
@@ -144,6 +146,7 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     public boolean isAppNameTaken(Application newApp){
         for(Application app : applications){
             if(app.getName().equals(newApp.getName()) && !app.getId().equals(newApp.getId())){
+                //log.info(app.getName() + " = " + newApp.getName() + " and " + app.getId() + " = " + newApp.getId());
                 return true;
             }
         }
