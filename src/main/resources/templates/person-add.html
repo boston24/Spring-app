@@ -8,14 +8,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
 
-    <title>Dodaj użytkownika</title>
+    <title>Add user</title>
 </head>
 <body>
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
-
-        <h1>Dodaj użytkownika</h1>
+        <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="my-auto">
+            Back
+        </a>
+        <h1>Add user</h1>
             <br/>
 
         <form method="post" th:action="@{/personAdd}" th:object="${person}">

@@ -14,7 +14,10 @@
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
 
-    <h1>Domena: <b><span th:text="${application.domain}"></span></b></h1>
+        <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="my-auto">
+            Back
+        </a>
+    <h1>Domain: <b><span th:text="${application.domain}"></span></b></h1>
         <br/>
 
     <form method="post" th:action="@{/appAll/edit}" th:object="${application}">

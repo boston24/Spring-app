@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
-    <title>Użytkownicy</title>
+    <title>Users</title>
 </head>
 <body>
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
-
-    <h1>Użytkownicy</h1>
+        <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="my-auto">
+            Back
+        </a>
+    <h1>Users</h1>
 
     <h5>No. of records: <span th:text="${persons.size()}"></span></h5>
 

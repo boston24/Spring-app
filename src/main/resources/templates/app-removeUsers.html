@@ -20,7 +20,9 @@
 
 <div id="main" class="jumbotron d-flex align-items-middle min-vh-100">
     <div class="container">
-
+        <a target="_self" rel="noopener noreferrer" th:href="@{/appAll}" class="my-auto">
+            Back
+        </a>
     <h1>Users</h1>
     </br>
 
@@ -37,7 +39,7 @@
     </br>
 
     <div>
-       <h3 th:if="${#lists.isEmpty(persons)}">Brak użytkowników</h3>
+       <h3 th:if="${#lists.isEmpty(persons)}">No users</h3>
         <div th:unless="${#lists.isEmpty(persons)}">
             <table class="table table-bordered table-hover text-center">
                 <thead class="thead-dark">
