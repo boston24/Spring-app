@@ -7,12 +7,14 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+@Slf4j
 public class GenerateAppsCSV {
     public static void export(List<Application> apps) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, InterruptedException{
 
@@ -28,6 +30,7 @@ public class GenerateAppsCSV {
         beanToCsv.write(apps);
         beanToCsv.getCapturedExceptions();
         writer.close();
+        log.info("Exported apps to CSV");
 
     }
 }

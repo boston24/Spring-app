@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GeneratePersonsCSV {
 
     public static void export(List<Person> persons) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, InterruptedException{
@@ -31,6 +33,7 @@ public class GeneratePersonsCSV {
         beanToCsv.write(persons);
         beanToCsv.getCapturedExceptions();
         writer.close();
+        log.info("Exported users to CSV");
 
 }
 
