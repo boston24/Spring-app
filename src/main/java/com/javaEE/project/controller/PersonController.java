@@ -83,10 +83,11 @@ public class PersonController {
     }
 
     @RequestMapping("/personDelete")
-    public String deletePerson(@RequestParam String username){
+    public String deletePerson(@RequestParam String username, Model model){
         pm.deletePersonByUsername(username);
         log.info("Deleted person: "+ username);
-        return "redirect:/";
+        model.addAttribute("persons",pm.getAllPersons());
+        return "persons";
     }
 
     @RequestMapping("appAll/selectUser")

@@ -31,11 +31,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="app : ${apps}">
-                    <td th:text="${app.name}"></td>
-                    <td th:text="${app.domain}"></td>
+                    <td style="vertical-align: middle;" th:text="${app.name}"></td>
+                    <td style="vertical-align: middle;" th:text="${app.domain}"></td>
 
-                    <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
-                        <!--<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#users">Pokaż użytkowników</button>-->
+                    <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
                         <a th:href="@{/appAll/selectUser(id=${app.id})}">Dodaj użytkowników</a>
                         <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">Zobacz użytkowników</a>
                         <a th:href="@{/appAll/edit(id=${app.id})}">Edytuj</a>
