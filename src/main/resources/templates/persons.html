@@ -43,9 +43,10 @@
                     <td style="vertical-align: middle;" th:text="${person.username}"></td>
                     <td style="vertical-align: middle;" th:text="${person.password}"></td>
 
-                    <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/personDelete(username=${person.username})}">Delete</a>
-                        <a th:href="@{/personAll/edit(id=${person.id})}">Edit</a>
-                        <a th:href="@{/person/showApps(id=${person.id})}">Aplikacje</a>
+                    <td style="background-color: #87ceeb; vertical-align: middle;">
+                        <a th:href="@{/personDelete(username=${person.username})}">DELETE</a>
+                        <a th:href="@{/personAll/edit(id=${person.id})}">EDIT</a>
+                        <a th:href="@{/person/showApps(id=${person.id})}">SHOW APPS</a>
                     </td>
 
                 </tr>
@@ -97,7 +98,7 @@ a{
 a:hover
 {
     color: inherit;
-    text-decoration: inherit;
+    text-decoration: underline;
 }
 
 #error{

@@ -14,9 +14,10 @@
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
 
-    <h1>Aplikacje</h1>
+    <h1>Applications</h1>
 
     <h5>No. of records: <span th:text="${apps.size()}"></span></h5>
+    </br>
 
     <div>
         <h3 th:if="${#lists.isEmpty(apps)}">No person in our db</h3>
@@ -34,10 +35,11 @@
                     <td style="vertical-align: middle;" th:text="${app.name}"></td>
                     <td style="vertical-align: middle;" th:text="${app.domain}"></td>
 
-                    <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
-                        <a th:href="@{/appAll/selectUser(id=${app.id})}">Dodaj użytkowników</a>
-                        <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">Zobacz użytkowników</a>
-                        <a th:href="@{/appAll/edit(id=${app.id})}">Edytuj</a>
+                    <td style="background-color: #87ceeb; vertical-align: middle; display: flex; justify-content: space-evenly;">
+                        <a th:href="@{/appDelete(domain=${app.domain})}">DELETE</a>
+                        <a th:href="@{/appAll/selectUser(id=${app.id})}">ADD USERS</a>
+                        <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">SHOW USERS</a>
+                        <a th:href="@{/appAll/edit(id=${app.id})}">EDIT</a>
                     </td>
 <!-- MODAL --------------------------------------------------------------------------------------------------------------------------------------------------------
                         <div class="modal fade" id="users" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -136,7 +138,7 @@ a{
 a:hover
 {
     color: inherit;
-    text-decoration: inherit;
+    text-decoration: underline;
 }
 
 #error{
