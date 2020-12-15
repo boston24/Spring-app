@@ -95,6 +95,9 @@ public class PersonController {
 
     @RequestMapping("/personDelete")
     public String deletePerson(@RequestParam String username, Model model){
+        for(Application app : pm.getPersonByUsername(username).getApp_list()){
+            am.removeFromUserList(app,pm.getPersonByUsername(username));
+        }
         pm.deletePersonByUsername(username);
         log.info("Deleted person: "+ username);
         model.addAttribute("persons",pm.getAllPersons());
