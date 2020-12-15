@@ -46,3 +46,8 @@ a:hover
     background-color: #2A2B2DFF;
     color: #2DA8D8FF;
 }
+
+.table{
+    background-color: white;
+    border: solid;
+}
