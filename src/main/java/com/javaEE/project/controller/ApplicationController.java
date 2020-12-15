@@ -106,7 +106,7 @@ public class ApplicationController {
         pm.removeAppFromList(app,p);
         model.addAttribute("persons",pm.getAllPersonsInApp(id));
         model.addAttribute("id",id);
-        model.addAttribute(am.getUserCountryData(id));
+        model.addAttribute("data",am.getUserCountryData(id));
         return "app-removeUsers";
     }
 

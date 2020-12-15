@@ -13,9 +13,12 @@
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
-        <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="my-auto">
+        <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
+        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}">Export to csv</a>
+    <br/>
+    <br/>
     <h1>Users</h1>
 
     <h5>No. of records: <span th:text="${persons.size()}"></span></h5>

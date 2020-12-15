@@ -1,9 +1,12 @@
 package com.javaEE.project.controller;
 
+import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,13 @@ public class PersonController {
     @GetMapping("/personAll")
     public String showPersons(Model model){
         model.addAttribute("persons", pm.getAllPersons());
+        return "persons";
+    }
+
+    @GetMapping("/personsExport")
+    public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
+        GeneratePersonsCSV.export(pm.getAllPersons());
+        model.addAttribute("persons",pm.getAllPersons());
         return "persons";
     }
 
