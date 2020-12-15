@@ -48,7 +48,7 @@ public class ApplicationController {
             return "app-edit";
         }
         if(am.isDomainTaken(application)){
-            errors.rejectValue("domain","error.application","Domain taken");
+            errors.rejectValue("domain","error.application","Domain is taken");
             return "app-edit";
         }
         am.replace(application);

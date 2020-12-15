@@ -27,7 +27,7 @@ public class Application {
     @CsvBindByName(column = "Domain name")
     @NotNull(message = "Domain is required")
     @Size(min = 1, message = "Domain is required")
-    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", message = "Wrong format")
+    @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", message = "Required format example: domainname.com")
     private String domain;
 
     private List<Person> user_list = new ArrayList<>();
