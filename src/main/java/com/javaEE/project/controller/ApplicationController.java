@@ -1,10 +1,14 @@
 package com.javaEE.project.controller;
 
 
+import com.javaEE.project.csvreaders.GenerateAppsCSV;
+import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +41,13 @@ public class ApplicationController {
     public String editApp(@RequestParam String id, Model model){
         model.addAttribute("application",am.findById(id));
         return "app-edit";
+    }
+
+    @GetMapping("/appsExport")
+    public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
+        GenerateAppsCSV.export(am.getAllApplications());
+        model.addAttribute("apps",am.getAllApplications());
+        return "apps";
     }
 
     @PostMapping("/appAll/edit")
