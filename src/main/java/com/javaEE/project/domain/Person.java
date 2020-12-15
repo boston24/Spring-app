@@ -33,7 +33,7 @@ public class Person {
 
     @CsvBindByName
     @NotNull(message = "Email is required")
-    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", message = "That's not an email")
+    @Pattern(regexp = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", message = "Required email example: xyz@site.com")
     private String email;
 
     @CsvBindByName(column = "Country")
