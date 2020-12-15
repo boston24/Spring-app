@@ -5,9 +5,7 @@ import com.javaEE.project.domain.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -158,7 +156,13 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public void removeAppFromList(Application app, Person p){
-        p.getApp_list().remove(app);
+        List<Application> out = new ArrayList<>();
+        for(Application application : p.getApp_list()){
+            if(!application.getId().equals(app.getId())){
+                out.add(application);
+            }
+        }
+        p.setApp_list(out);
     }
 
     @Override

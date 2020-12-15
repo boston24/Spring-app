@@ -114,8 +114,11 @@ public class ApplicationController {
     public String removePersonFromApp(@RequestParam String id, @RequestParam String perid, Model model){
         Person p = pm.getPersonById(id);
         Application app = am.findById(id);
-        am.removeFromUserList(id,p);
+        am.removeFromUserList(app,p);
         pm.removeAppFromList(app,p);
+        for(Person per : app.getUser_list()){
+            log.info("users after deletion: " + per.getUsername());
+        }
         model.addAttribute("persons",pm.getAllPersonsInApp(id));
         model.addAttribute("id",id);
         model.addAttribute("data",am.getUserCountryData(id));
