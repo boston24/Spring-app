@@ -111,8 +111,8 @@ public class ApplicationController {
     }
 
     @RequestMapping("appAll/removeUser")
-    public String removePersonFromApp(@RequestParam String id, @RequestParam String username, Model model){
-        Person p = pm.getPersonByUsername(username);
+    public String removePersonFromApp(@RequestParam String id, @RequestParam String perid, Model model){
+        Person p = pm.getPersonById(id);
         Application app = am.findById(id);
         am.removeFromUserList(id,p);
         pm.removeAppFromList(app,p);

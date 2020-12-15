@@ -64,7 +64,7 @@
                     <td style="vertical-align: middle;" th:text="${person.username}"></td>
 
                     <div th:with="id=${id}">
-                        <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/appAll/removeUser(id=${id},username=${person.username})}">DELETE</a></td>
+                        <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/appAll/removeUser(id=${id},perid=${person.id})}">DELETE</a></td>
                     </div>
 
                 </tr>
