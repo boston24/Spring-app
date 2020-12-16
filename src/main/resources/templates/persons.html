@@ -7,16 +7,18 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
     <title>Users</title>
 </head>
 <body>
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
-    <div class="container">
+    <div class="container mb-3 mt-3">
         <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
-        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}" href="src/main/resources/outputs/persons-generated.csv" download="person-exported">Export to csv</a>
+        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}">Export to csv</a>
     <br/>
     <br/>
     <h1>Users</h1>
@@ -49,9 +51,30 @@
                     <td style="vertical-align: middle;" th:text="${person.password}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle;">
-                        <a th:href="@{/personDelete(username=${person.username})}">DELETE</a>
+                        <a th:href="@{/personDelete(username=${person.username})}" data-toggle="modal" data-target="#exampleModal">DELETE</a>
                         <a th:href="@{/personAll/edit(id=${person.id})}">EDIT</a>
                         <a th:href="@{/person/showApps(id=${person.id})}">SHOW APPS</a>
+                        <!-- MODAL -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you want to delete user <span th:text="${person.username}"></span>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                        <a th:href="@{/personDelete(username=${person.username})}" class="btn btn-danger">Yes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MODAL -->
                     </td>
 
                 </tr>
@@ -62,8 +85,18 @@
     </div>
 </div>
 
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+
+
+
 
 <style>
    #main{
