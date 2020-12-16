@@ -16,7 +16,7 @@
         <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
-        <a class="border border-dark p-1 rounded" th:href="@{/appsExport}">Export to csv</a>
+        <a class="border border-dark p-1 rounded" th:href="@{/appsExport}" id="export">Export to csv</a>
 
         <br/>
         <br/>
@@ -42,58 +42,32 @@
                     <td style="vertical-align: middle;" th:text="${app.domain}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle; display: flex; justify-content: space-evenly;">
-                        <a th:href="@{/appDelete(domain=${app.domain})}">DELETE</a>
+                        <a th:href="@{/appDelete(domain=${app.domain})}"  data-toggle="modal" data-target="#exampleModal">DELETE</a>
                         <a th:href="@{/appAll/selectUser(id=${app.id})}">ADD USERS</a>
                         <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">SHOW USERS</a>
                         <a th:href="@{/appAll/edit(id=${app.id})}">EDIT</a>
-                    </td>
-<!-- MODAL --------------------------------------------------------------------------------------------------------------------------------------------------------
-                        <div class="modal fade" id="users" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
+                        <!-- MODAL -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Użytkownicy</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h3 th:if="${#lists.isEmpty(app.user_list)}">No users</h3>
-                                        <div th:unless="${#lists.isEmpty(apps.user_list)}">
-                                            <table>
-                                                <thead>
-                                                <tr>
-                                                    <th>First name</th>
-                                                    <th>Last name</th>
-                                                    <th>Email</th>
-                                                    <th>Country</th>
-                                                    <th>Username</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="user : @{/appAll(domain=app.domain)}">
-                                                    <td th:text="${user.first_name}"></td>
-                                                    <td th:text="${user.last_name}"></td>
-                                                    <td th:text="${user.email}"></td>
-                                                    <td th:text="${user.country}"></td>
-                                                    <td th:text="${user.username}"></td>
-
-                                                    <td><a th:href="@{/appDelete(domain=${app.domain})}">Delete</a>
-                                                        <a th:href="@{/appDelete}">Edit</a>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        Do you want to delete app <span th:text="${app.name}"></span>?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                        <a th:href="@{/appDelete(domain=${app.domain})}" class="btn btn-danger">Yes</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
- MODAL --------------------------------------------------------------------------------------------------------------------------------------------------------->
 
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -105,6 +79,14 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
 
 <style>
    #main{

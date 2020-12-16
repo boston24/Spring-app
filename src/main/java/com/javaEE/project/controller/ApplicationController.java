@@ -32,7 +32,7 @@ public class ApplicationController {
     PersonManager pm;
 
     @GetMapping("/appAll")
-    public String showApps(Model model){
+    public String showApps(Model model, @RequestParam(required = false) String isExported){
         model.addAttribute("apps", am.getAllApplications());
         return "apps";
     }
@@ -47,6 +47,7 @@ public class ApplicationController {
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GenerateAppsCSV.export(am.getAllApplications());
         model.addAttribute("apps",am.getAllApplications());
+        model.addAttribute("isExported",'T');
         return "apps";
     }
 
