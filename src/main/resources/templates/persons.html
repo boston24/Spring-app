@@ -18,7 +18,13 @@
         <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
-        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}">Export to csv</a>
+        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}" id="import">Export to csv</a>
+        <br/>
+        <br/>
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Exported users to CSV.
+        </div>
     <br/>
     <br/>
     <h1>Users</h1>
@@ -95,6 +101,25 @@
 
 
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    $(document).ready(function(){
+    $('#import').click(function(){
+        $('.alert').show()
+    })
+});
+    /*]]>*/
+</script>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +139,10 @@ body{
         font-size: 2vh;
         max-width: 1920px;
         color: #2A2B2DFF;
+}
+
+.alert{
+    display: none;
 }
 
 #hp_link h4{
