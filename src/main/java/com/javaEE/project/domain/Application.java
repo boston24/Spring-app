@@ -4,16 +4,16 @@ import com.opencsv.bean.CsvBindByName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import scala.tools.nsc.doc.base.comment.Table;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -39,7 +39,16 @@ public class Application {
     @Pattern(regexp = "^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$", message = "Required format example: domainname.com")
     private String domain;
 
-    @Column(name="users")
-    private List<Person> user_list = new ArrayList<>();
+    @ManyToMany(mappedBy = "app_list")
+    private Set<Person> user_list = new HashSet<>();
 
+    public List<Person> getUser_list() {
+        List<Person> out = new ArrayList<>(user_list);
+        return out;
+    }
+
+    public void setUser_list(List<Person> user_list) {
+        Set<Person> out = new HashSet<>(user_list);
+        this.user_list = out;
+    }
 }
