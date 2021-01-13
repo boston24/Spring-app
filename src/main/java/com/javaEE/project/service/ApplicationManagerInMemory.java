@@ -57,14 +57,14 @@ public class ApplicationManagerInMemory implements ApplicationManager {
     @Override
     public Application findByDomain(String domain){
         for(Application app : ar.findAll()){
-            log.info("Szukam "+domain);
+            //log.info("Szukam "+domain);
             if(app.getDomain().equals(domain)){
-                log.info("Znalazłem");
+                //log.info("Znalazłem");
                 return app;
             }
-            log.info("Nie znalazłem");
+            //log.info("Nie znalazłem");
         }
-        log.info("Wychodze z nullem");
+        //log.info("Wychodze z nullem");
         return null;
     }
 
@@ -83,7 +83,8 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         for(Application app : ar.findAll()){
             if(app.getId().equals(edited.getId())){
                 edited.setUser_list(app.getUser_list());
-                ar.findAll().set(ar.findAll().indexOf(app),edited);
+                //ar.findAll().set(ar.findAll().indexOf(app),edited);
+                ar.save(edited);
             }
         }
     }
