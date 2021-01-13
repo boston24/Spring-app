@@ -14,13 +14,10 @@ import java.util.*;
 @Service
 public class PersonManagerInMemory implements PersonManager {
 
-    private static final List<Person> persons = new ArrayList<>();
-
-    @Autowired
-    ApplicationRepository ar;
-
     @Autowired
     PersonRepository pr;
+
+    private static final List<Person> persons = new ArrayList<>();
 
     @Override
     public void loadData(List<Person> data){
@@ -36,7 +33,8 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void addPerson(Person person){
         person.setId(UUID.randomUUID().toString());
-        persons.add(person);
+        pr.save(person);
+        //persons.add(person);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public Person getPersonById(String id){
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             if(per.getId().equals(id)){
                 return per;
             }
@@ -58,20 +56,20 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void deletePersonById(String id){
         Person personToRemove = null;
-        for(Person person: persons){
+        for(Person person: pr.findAll()){
             if(person.getId().equals(id)){
                 personToRemove = person;
             }
         }
         if(personToRemove != null){
-            persons.remove(personToRemove);
+            pr.findAll().remove(personToRemove);
         }
     }
 
     @Override
     public List<String> getAppNames(String id){
         List<String> out = new ArrayList<>();
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             for(Application app : per.getApp_list()){
                 out.add(app.getName());
             }
@@ -82,13 +80,13 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void deletePersonByUsername(String username){
         Person personToRemove = null;
-        for(Person person: persons){
+        for(Person person: pr.findAll()){
             if(person.getUsername().equals(username)){
                 personToRemove = person;
             }
         }
         if(personToRemove != null){
-            persons.remove(personToRemove);
+            pr.findAll().remove(personToRemove);
         }
     }
 
@@ -96,7 +94,7 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public List<Person> getAllPersonsNotInApp(String id){
         List<Person> temp = new ArrayList<>();
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             boolean check = false;
             if(per.getApp_list().isEmpty()) {
                 temp.add(per);
@@ -118,10 +116,10 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public void replace(Person edited){
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             if(per.getId().equals(edited.getId())){
                 edited.setApp_list(per.getApp_list());
-                persons.set(persons.indexOf(per),edited);
+                pr.findAll().set(pr.findAll().indexOf(per),edited);
             }
         }
     }
@@ -129,7 +127,7 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public List<Person> getAllPersonsInApp(String id){
         List<Person> temp = new ArrayList<>();
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             if(per.getApp_list().isEmpty()) {
                 continue;
             }
@@ -148,7 +146,7 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public Person getPersonByUsername(String username){
-        for(Person p : persons){
+        for(Person p : pr.findAll()){
             log.info("Szukam "+username);
             if(p.getUsername().equals(username)){
                 log.info("Znalazłem");
@@ -177,7 +175,7 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public boolean isUsernameTaken(Person newbie){
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             if(per.getUsername().equals(newbie.getUsername()) && !per.getId().equals(newbie.getId())){
                 return true;
             }
@@ -187,7 +185,7 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public boolean isEmailTaken(Person newbie){
-        for(Person per : persons){
+        for(Person per : pr.findAll()){
             if(per.getEmail().equals(newbie.getEmail()) && !per.getId().equals(newbie.getId())){
                 return true;
             }
