@@ -51,11 +51,12 @@
                     <td style="vertical-align: middle;" th:text="${app.domain}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle; display: flex; justify-content: space-evenly;">
-                        <a th:href="@{/appDelete(domain=${app.domain})}"  data-toggle="modal" data-target="#exampleModal">DELETE</a>
+                        <a th:href="@{/appDelete(domain=${app.domain})}" data-target="#exampleModal">DELETE</a>
                         <a th:href="@{/appAll/selectUser(id=${app.id})}">ADD USERS</a>
                         <a th:href="@{/appAll/selectUserToRemove(id=${app.id})}">SHOW USERS</a>
                         <a th:href="@{/appAll/edit(id=${app.id})}">EDIT</a>
                         <!-- MODAL -->
+                        <!--
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -75,6 +76,8 @@
                                 </div>
                             </div>
                         </div>
+                        -->
+                        <!-- MODAL -->
 
                     </td>
                 </tr>

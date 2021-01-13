@@ -57,30 +57,34 @@
                     <td style="vertical-align: middle;" th:text="${person.password}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle;">
-                        <a th:href="@{/personDelete(username=${person.username})}" data-toggle="modal" data-target="#exampleModal">DELETE</a>
-                        <a th:href="@{/personAll/edit(id=${person.id})}">EDIT</a>
-                        <a th:href="@{/person/showApps(id=${person.id})}">SHOW APPS</a>
-                        <!-- MODAL -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Do you want to delete a user?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                                        <a th:href="@{/personDelete(username=${person.username})}" class="btn btn-danger">Yes</a>
+                        <a th:href="@{/personDelete(username=${person.username})}" data-target="#exampleModal">DELETE
+                            <!-- MODAL -->
+                            <!--
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you want to delete
+                                            <span th:text="${person.username}"></span>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                            <a th:href="@{/personDelete(username=${person.username})}" class="btn btn-danger">Yes</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- MODAL -->
+                            -->
+                            <!-- MODAL -->
+                        </a>
+                        <a th:href="@{/personAll/edit(id=${person.id})}">EDIT</a>
+                        <a th:href="@{/person/showApps(id=${person.id})}">SHOW APPS</a>
                     </td>
 
                 </tr>
@@ -91,7 +95,17 @@
     </div>
 </div>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
 
+
+                $(document).ready(function(){
+    $('#import').click(function(){
+        $('.alert').show()
+    })
+
+    /*]]>*/
+</script>
 
 
 
@@ -101,7 +115,7 @@
 
 
 
-<script th:inline="javascript">
+<!--<script th:inline="javascript">
     /*<![CDATA[*/
 
     $(document).ready(function(){
@@ -110,7 +124,7 @@
     })
 });
     /*]]>*/
-</script>
+</script>-->
 
 
 
