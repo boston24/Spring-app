@@ -119,7 +119,8 @@ public class PersonManagerInMemory implements PersonManager {
         for(Person per : pr.findAll()){
             if(per.getId().equals(edited.getId())){
                 edited.setApp_list(per.getApp_list());
-                pr.findAll().set(pr.findAll().indexOf(per),edited);
+                //pr.findAll().set(pr.findAll().indexOf(per),edited);
+                pr.save(edited);
             }
         }
     }
