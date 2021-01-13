@@ -4,6 +4,8 @@ import com.javaEE.project.csvreaders.CSVReaderApplications;
 import com.javaEE.project.csvreaders.CSVReaderPersons;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.repository.ApplicationRepository;
+import com.javaEE.project.repository.PersonRepository;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
 import lombok.extern.slf4j.Slf4j;

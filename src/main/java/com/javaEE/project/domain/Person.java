@@ -52,7 +52,7 @@ public class Person {
     @Column(name="country")
     @CsvBindByName(column = "Country")
     @NotNull(message = "Country required")
-    @Pattern(regexp = "[a-zA-Z]{2,}", message = "Only letters of the alphabet allowed")
+    @Pattern(regexp = "[a-zA-Z ]{2,}", message = "Only letters of the alphabet allowed")
     private String country;
 
     @Column(name="username")

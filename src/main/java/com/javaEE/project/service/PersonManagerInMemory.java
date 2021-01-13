@@ -2,7 +2,10 @@ package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.repository.ApplicationRepository;
+import com.javaEE.project.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,12 +16,19 @@ public class PersonManagerInMemory implements PersonManager {
 
     private static final List<Person> persons = new ArrayList<>();
 
+    @Autowired
+    ApplicationRepository ar;
+
+    @Autowired
+    PersonRepository pr;
+
     @Override
     public void loadData(List<Person> data){
         for(Person person : data){
             if(isEmailTaken(person)==false && isUsernameTaken(person)==false){
                 //log.info("Dodaje uzytkownika: " + person);
-                persons.add(person);
+                //persons.add(person);
+                pr.save(person);
             }
         }
     }
@@ -31,7 +41,7 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public List<Person> getAllPersons(){
-        return persons;
+        return pr.findAll();
     }
 
 

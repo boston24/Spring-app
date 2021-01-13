@@ -5,6 +5,8 @@ import com.javaEE.project.csvreaders.GenerateAppsCSV;
 import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.repository.ApplicationRepository;
+import com.javaEE.project.repository.PersonRepository;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
