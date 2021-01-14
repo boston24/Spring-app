@@ -86,7 +86,8 @@ public class PersonManagerInMemory implements PersonManager {
             }
         }
         if(personToRemove != null){
-            pr.findAll().remove(personToRemove);
+            //pr.findAll().remove(personToRemove);
+            pr.delete(personToRemove);
         }
     }
 
