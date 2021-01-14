@@ -103,6 +103,7 @@ public class ApplicationManagerInMemory implements ApplicationManager {
             }
         }
         app.setUser_list(out);
+        ar.save(app);
     }
 
     @Override

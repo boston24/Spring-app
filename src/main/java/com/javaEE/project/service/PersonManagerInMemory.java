@@ -176,6 +176,7 @@ public class PersonManagerInMemory implements PersonManager {
             }
         }
         p.setApp_list(out);
+        pr.save(p);
     }
 
     @Override
