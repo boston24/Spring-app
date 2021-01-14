@@ -161,7 +161,10 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void addAppToAppList(Application app, Person p){
         log.info("Przypisuje aplikacje to listy aplikacji użytkownika");
-        p.getApp_list().add(app);
+        p.getApp_listAsSet().add(app);
+        app.getUser_listAsSet().add(p);
+        pr.save(p);
+        //p.getApp_list().add(app);
     }
 
     @Override

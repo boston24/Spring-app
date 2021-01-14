@@ -106,7 +106,7 @@ public class ApplicationController {
         Person p = pm.getPersonById(id_per);
         Application app = am.findById(id_app);
         pm.addAppToAppList(app,p);
-        am.addToUserList(app,p);
+        //am.addToUserList(app,p);
         model.addAttribute("persons",pm.getAllPersonsNotInApp(id_app));
         model.addAttribute("id",id_app);
         return "app-addUsers";

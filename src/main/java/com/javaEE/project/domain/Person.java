@@ -1,9 +1,7 @@
 package com.javaEE.project.domain;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -22,7 +20,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name="person")
-
+//@ToString.Exclude
+//@EqualsAndHashCode.Exclude
+@EqualsAndHashCode(exclude = "app_list")
+@ToString(exclude = "app_list")
 public class Person {
 
     @Id
@@ -67,7 +68,7 @@ public class Person {
     @Size(min = 6, message = "Password too short (min. 6 characters)")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name="person_application",
             joinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id"),
@@ -82,5 +83,9 @@ public class Person {
     public void setApp_list(List<Application> app_list) {
         Set<Application> out = new HashSet<>(app_list);
         this.app_list = out;
+    }
+
+    public Set<Application> getApp_listAsSet(){
+        return app_list;
     }
 }

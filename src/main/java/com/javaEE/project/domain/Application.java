@@ -1,9 +1,7 @@
 package com.javaEE.project.domain;
 
 import com.opencsv.bean.CsvBindByName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -20,6 +18,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name="application")
+//@ToString.Exclude
+//@EqualsAndHashCode.Exclude
+@EqualsAndHashCode(exclude = "user_list")
+@ToString(exclude = "user_list")
 public class Application {
 
     @Id
@@ -50,5 +52,9 @@ public class Application {
     public void setUser_list(List<Person> user_list) {
         Set<Person> out = new HashSet<>(user_list);
         this.user_list = out;
+    }
+
+    public Set<Person> getUser_listAsSet(){
+        return user_list;
     }
 }
