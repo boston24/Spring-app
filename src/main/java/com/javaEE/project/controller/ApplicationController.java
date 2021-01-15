@@ -86,7 +86,7 @@ public class ApplicationController {
         }
         am.addApplication(application);
         log.info("App created: "+application);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @RequestMapping("/appDelete")

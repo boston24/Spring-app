@@ -90,7 +90,7 @@ public class PersonController {
         }
         pm.addPerson(person);
         log.info("Person created: " + person);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @RequestMapping("/personDelete")
