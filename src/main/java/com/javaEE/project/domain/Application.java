@@ -45,6 +45,8 @@ public class Application {
     @ManyToMany(mappedBy = "app_list")
     private Set<Person> user_list = new HashSet<>();
 
+    private int number_of_users = 0;
+
     public List<Person> getUser_list() {
         List<Person> out = new ArrayList<>(user_list);
         return out;
@@ -57,5 +59,13 @@ public class Application {
 
     public Set<Person> getUser_listAsSet(){
         return user_list;
+    }
+
+    public void setNumberOfUsers(){
+        int count = 0;
+        for(Person per : user_list){
+            count++;
+        }
+        this.number_of_users = count;
     }
 }

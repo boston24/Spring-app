@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -80,6 +81,15 @@ public class HomeController {
         pm.addPerson(person);
         log.info("Person created: " + person);
         return "redirect:/";
+    }
+
+    @GetMapping("/apptable")
+    public String showApps(Model model){
+        for(Application app : am.getAllApplications()){
+            app.setNumberOfUsers();
+        }
+        model.addAttribute("apps", am.getAllApplications());
+        return "all/allApps";
     }
 
 }
