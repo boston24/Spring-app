@@ -31,62 +31,62 @@ public class ApplicationController {
     @GetMapping("/appAll")
     public String showApps(Model model){
         model.addAttribute("apps", am.getAllApplications());
-        return "apps";
+        return "admin/apps";
     }
 
     @GetMapping("/appAll/edit")
     public String editApp(@RequestParam String id, Model model){
         model.addAttribute("application",am.findById(id));
-        return "app-edit";
+        return "admin/app-edit";
     }
 
     @GetMapping("/appsExport")
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GenerateAppsCSV.export(am.getAllApplications());
         model.addAttribute("apps",am.getAllApplications());
-        return "apps";
+        return "admin/apps";
     }
 
     @PostMapping("/appAll/edit")
     public String editAppHelp(@Valid Application application, Errors errors, Model model){
         if(errors.hasErrors()){
-            return "app-edit";
+            return "admin/app-edit";
         }
         if(am.isAppNameTaken(application)){
             errors.rejectValue("name","error.application","App name taken");
-            return "app-edit";
+            return "admin/app-edit";
         }
         if(am.isDomainTaken(application)){
             errors.rejectValue("domain","error.application","Domain is taken");
-            return "app-edit";
+            return "admin/app-edit";
         }
         am.replace(application);
         model.addAttribute("apps",am.getAllApplications());
-        return "apps";
+        return "admin/apps";
     }
 
     @GetMapping("/appAdd")
     public String createApp(Model model){
         model.addAttribute("application", new Application());
-        return "apps-add";
+        return "admin/apps-add";
     }
 
     @PostMapping("/appAdd")
     public String addCreated(@Valid Application application, Errors errors){
         if(errors.hasErrors()){
-            return "apps-add";
+            return "admin/apps-add";
         }
         if(am.isAppNameTaken(application)){
             errors.rejectValue("name","error.application","Domain taken");
-            return "apps-add";
+            return "admin/apps-add";
         }
         if(am.isDomainTaken(application)){
             errors.rejectValue("domain","error.application","App name taken");
-            return "apps-add";
+            return "admin/apps-add";
         }
         am.addApplication(application);
         log.info("App created: "+application);
-        return "redirect:/admin";
+        return "admin/home";
     }
 
     @RequestMapping("/appDelete")
@@ -96,7 +96,7 @@ public class ApplicationController {
         }
         am.deleteApplicationByDomain(domain);
         model.addAttribute("apps",am.getAllApplications());
-        return "apps";
+        return "admin/apps";
     }
 
     @RequestMapping("appAll/addUser")
@@ -107,7 +107,7 @@ public class ApplicationController {
         //am.addToUserList(app,p);
         model.addAttribute("persons",pm.getAllPersonsNotInApp(id_app));
         model.addAttribute("id",id_app);
-        return "app-addUsers";
+        return "admin/app-addUsers";
     }
 
     @RequestMapping("appAll/removeUser")
@@ -123,7 +123,7 @@ public class ApplicationController {
         model.addAttribute("persons",pm.getAllPersonsInApp(id));
         model.addAttribute("id",id);
         model.addAttribute("data",am.getUserCountryData(id));
-        return "app-removeUsers";
+        return "admin/app-removeUsers";
     }
 
 

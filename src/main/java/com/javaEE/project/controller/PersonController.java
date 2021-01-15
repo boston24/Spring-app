@@ -35,62 +35,62 @@ public class PersonController {
     @GetMapping("/personAll")
     public String showPersons(Model model){
         model.addAttribute("persons", pm.getAllPersons());
-        return "persons";
+        return "admin/persons";
     }
 
     @GetMapping("/personsExport")
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GeneratePersonsCSV.export(pm.getAllPersons());
         model.addAttribute("persons",pm.getAllPersons());
-        return "persons";
+        return "admin/persons";
     }
 
     @GetMapping("/personAll/edit")
     public String editPerson(@RequestParam String id, Model model){
         model.addAttribute("person", pm.getPersonById(id));
-        return "persons-edit";
+        return "admin/persons-edit";
     }
 
     @PostMapping("/personAll/edit")
     public String editPersonHelper(@Valid Person person, Errors errors, Model model){
         if(errors.hasErrors()){
-            return "persons-edit";
+            return "admin/persons-edit";
         }
         if(pm.isUsernameTaken(person)){
             errors.rejectValue("username","error.person","Username taken");
-            return "persons-edit";
+            return "admin/persons-edit";
         }
         if(pm.isEmailTaken(person)){
             errors.rejectValue("email","error.person","Email taken");
-            return "persons-edit";
+            return "admin/persons-edit";
         }
         pm.replace(person);
         model.addAttribute("persons",pm.getAllPersons());
-        return "persons";
+        return "admin/persons";
     }
 
     @GetMapping("/personAdd")
     public String createPerson(Model model){
         model.addAttribute("person", new Person());
-        return "person-add";
+        return "admin/person-add";
     }
 
     @PostMapping("/personAdd")
     public String addCreated(@Valid Person person, Errors errors){
         if(errors.hasErrors()){
-            return "person-add";
+            return "admin/person-add";
         }
         if(pm.isUsernameTaken(person)){
             errors.rejectValue("username","error.person","Username taken");
-            return "person-add";
+            return "admin/person-add";
         }
         if(pm.isEmailTaken(person)){
             errors.rejectValue("email","error.person","Email taken");
-            return "person-add";
+            return "admin/person-add";
         }
         pm.addPerson(person);
         log.info("Person created: " + person);
-        return "redirect:/admin";
+        return "admin/home";
     }
 
     @RequestMapping("/personDelete")
@@ -101,7 +101,7 @@ public class PersonController {
         pm.deletePersonByUsername(username);
         log.info("Deleted person: "+ username);
         model.addAttribute("persons",pm.getAllPersons());
-        return "persons";
+        return "admin/persons";
     }
 
     @RequestMapping("appAll/selectUser")
@@ -117,7 +117,7 @@ public class PersonController {
             model.addAttribute("persons", pm.getAllPersonsInApp(id));
             model.addAttribute("id",id);
             model.addAttribute("data",am.getUserCountryData(id));
-            return "app-removeUsers";
+            return "admin/app-removeUsers";
 
         }
 
@@ -129,7 +129,7 @@ public class PersonController {
                 log.info("Znalazłem: "+username);
                 model.addAttribute("id",id);
                 //model.addAttribute("data",am.getUserCountryData(id));
-                return "app-removeUsers";
+                return "admin/app-removeUsers";
             }
         }
 
@@ -138,7 +138,7 @@ public class PersonController {
         model.addAttribute("persons",empty);
         log.info("Brak wynikow");
         model.addAttribute("id",id);
-        return "app-removeUsers";
+        return "admin/app-removeUsers";
 
     }
 
@@ -149,7 +149,7 @@ public class PersonController {
             model.addAttribute("apps", am.getAllAppsInUser(id));
             model.addAttribute("id",id);
             log.info("Pokazuje wszystkie aplikacje uzytkownika");
-            return "persons-appList";
+            return "admin/persons-appList";
         }
 
         for(Application app : pm.getPersonById(id).getApp_list()){
@@ -159,7 +159,7 @@ public class PersonController {
                 model.addAttribute("apps",temp);
                 model.addAttribute("id",id);
                 log.info("Znalazem aplikacje w liscie");
-                return "persons-appList";
+                return "admin/persons-appList";
             }
         }
 
@@ -167,7 +167,7 @@ public class PersonController {
         model.addAttribute("apps",empty);
         model.addAttribute("id",id);
         log.info("Nie znaleziono aplikacji");
-        return "persons-appList";
+        return "admin/persons-appList";
 
     }
 

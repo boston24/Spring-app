@@ -56,7 +56,7 @@ public class HomeController {
 
     @GetMapping("/admin")
     public String admin(){
-        return "home";
+        return "admin/home";
     }
 
     @GetMapping("/register")
