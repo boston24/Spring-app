@@ -96,6 +96,9 @@ public class ApplicationController {
 
     @RequestMapping("/appDelete")
     public String deletePerson(@RequestParam String domain, Model model){
+        for(Person per : am.findByDomain(domain).getUser_list()){
+            pm.removeAppFromList(am.findByDomain(domain),per);
+        }
         am.deleteApplicationByDomain(domain);
         model.addAttribute("apps",am.getAllApplications());
         return "apps";
