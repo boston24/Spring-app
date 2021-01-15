@@ -169,13 +169,17 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public void removeAppFromList(Application app, Person p){
-        List<Application> out = new ArrayList<>();
+        /*List<Application> out = new ArrayList<>();
         for(Application application : p.getApp_list()){
             if(!application.getId().equals(app.getId())){
                 out.add(application);
             }
         }
         p.setApp_list(out);
+        */
+        log.info("DELETING"+p.getUsername());
+        p.getApp_listAsSet().remove(app);
+        app.getUser_listAsSet().remove(p);
         pr.save(p);
     }
 

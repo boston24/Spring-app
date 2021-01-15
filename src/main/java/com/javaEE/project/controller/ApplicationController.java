@@ -114,13 +114,14 @@ public class ApplicationController {
 
     @RequestMapping("appAll/removeUser")
     public String removePersonFromApp(@RequestParam String id, @RequestParam String perid, Model model){
-        Person p = pm.getPersonById(id);
+        Person p = pm.getPersonById(perid);
+        log.info("TO DELETE: "+p.getUsername());
         Application app = am.findById(id);
-        am.removeFromUserList(app,p);
+        //am.removeFromUserList(app,p);
         pm.removeAppFromList(app,p);
-        /*for(Person per : app.getUser_list()){
+        for(Person per : app.getUser_list()){
             log.info("users after deletion: " + per.getUsername());
-        }*/
+        }
         model.addAttribute("persons",pm.getAllPersonsInApp(id));
         model.addAttribute("id",id);
         model.addAttribute("data",am.getUserCountryData(id));

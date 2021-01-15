@@ -96,13 +96,14 @@ public class ApplicationManagerInMemory implements ApplicationManager {
 
     @Override
     public void removeFromUserList(Application app, Person per){
-        List<Person> out = new ArrayList<>();
+        /*List<Person> out = new ArrayList<>();
         for(Person person : app.getUser_list()){
             if(!person.getId().equals(per.getId())){
                 out.add(person);
             }
         }
-        app.setUser_list(out);
+        app.setUser_list(out);*/
+        app.getUser_listAsSet().remove(per);
         ar.save(app);
     }
 
