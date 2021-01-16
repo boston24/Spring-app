@@ -76,6 +76,8 @@ public class Person {
     )
     private Set<Application> app_list = new HashSet<>();
 
+
+
     public List<Application> getApp_list() {
         List<Application> out = new ArrayList<>(app_list);
         return out;

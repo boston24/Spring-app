@@ -1,18 +1,22 @@
 package com.javaEE.project.security;
 
+import com.javaEE.project.domain.Person;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
     private String username;
+    private String password;
 
-    public MyUserDetails(String username) {
-        this.username = username;
+    public MyUserDetails(Person user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
     }
 
     public MyUserDetails() {
@@ -25,7 +29,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "pass";
+        return password;
     }
 
     @Override
