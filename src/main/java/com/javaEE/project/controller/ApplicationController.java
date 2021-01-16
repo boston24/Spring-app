@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -124,6 +125,31 @@ public class ApplicationController {
         model.addAttribute("id",id);
         model.addAttribute("data",am.getUserCountryData(id));
         return "admin/app-removeUsers";
+    }
+
+    @GetMapping("/user/createapp")
+    public String createAppByUser(Model model){
+        model.addAttribute("application", new Application());
+        return "user/user-createapp";
+    }
+
+    @PostMapping("/user/createapp")
+    public String addCreated(@Valid Application application, Errors errors, Principal principal){
+        if(errors.hasErrors()){
+            return "user/user-createapp";
+        }
+        if(am.isAppNameTaken(application)){
+            errors.rejectValue("name","error.application","Domain taken");
+            return "user/user-createapp";
+        }
+        if(am.isDomainTaken(application)){
+            errors.rejectValue("domain","error.application","App name taken");
+            return "user/user-createapp";
+        }
+        am.addApplication(application);
+        pm.addAppToAppList(application,pm.getPersonByUsername(principal.getName()));
+        log.info("App created: "+application);
+        return "user/homeUser";
     }
 
 
