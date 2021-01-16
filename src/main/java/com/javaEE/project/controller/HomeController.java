@@ -59,6 +59,9 @@ public class HomeController {
         return "admin/home";
     }
 
+    @GetMapping("/user")
+    public String user(){ return "user/homeUser";}
+
     @GetMapping("/register")
     public String register(Model model){
         model.addAttribute("person", new Person());
