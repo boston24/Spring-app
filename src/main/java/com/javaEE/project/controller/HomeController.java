@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +56,16 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
-    public String admin(){
+    public String admin(Principal principal){
+        log.info(principal.getName());
         return "admin/home";
     }
 
     @GetMapping("/user")
-    public String user(){ return "user/homeUser";}
+    public String user(Principal principal){
+        log.info(principal.getName());
+        return "user/homeUser";
+    }
 
     @GetMapping("/register")
     public String register(Model model){

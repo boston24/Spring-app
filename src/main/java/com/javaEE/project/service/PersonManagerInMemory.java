@@ -22,9 +22,16 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public void loadData(List<Person> data){
         for(Person person : data){
-            if(isEmailTaken(person)==false && isUsernameTaken(person)==false){
+            if(person.getId().equals("admin")){
+                person.setRoles("ROLE_ADMIN");
+                person.setActive(true);
+                pr.save(person);
+            }
+            else if(isEmailTaken(person)==false && isUsernameTaken(person)==false){
                 //log.info("Dodaje uzytkownika: " + person);
                 //persons.add(person);
+                person.setRoles("ROLE_USER");
+                person.setActive(true);
                 pr.save(person);
             }
         }
@@ -39,7 +46,13 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public List<Person> getAllPersons(){
-        return pr.findAll();
+        List<Person> out = new ArrayList<>();
+        for(Person per : pr.findAll()){
+            if(!per.getId().equals("admin")){
+                out.add(per);
+            }
+        }
+        return out;
     }
 
 

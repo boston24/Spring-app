@@ -76,7 +76,8 @@ public class Person {
     )
     private Set<Application> app_list = new HashSet<>();
 
-
+    private boolean active;
+    private String roles;
 
     public List<Application> getApp_list() {
         List<Application> out = new ArrayList<>(app_list);

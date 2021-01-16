@@ -1,4 +1,5 @@
 id,first_name,last_name,email,Country,Password,Username
+admin,admin,admin,admin@admin.ad,admin,admin123,admin
 1,Ode,Broderick,obroderick0@slate.com,Indonesia,0uC32wVsKA,obroderick0
 2,Brig,Petersen,bpetersen1@dot.gov,Portugal,GB4znf,bpetersen1
 3,Barris,Balsom,bbalsom2@illinois.edu,Russia,JrRT3Hl,bbalsom2
