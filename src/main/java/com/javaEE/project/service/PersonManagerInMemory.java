@@ -101,6 +101,7 @@ public class PersonManagerInMemory implements PersonManager {
         if(personToRemove != null){
             //pr.findAll().remove(personToRemove);
             pr.delete(personToRemove);
+            log.info("Deleted "+personToRemove.getUsername());
         }
     }
 
@@ -110,7 +111,7 @@ public class PersonManagerInMemory implements PersonManager {
         List<Person> temp = new ArrayList<>();
         for(Person per : pr.findAll()){
             boolean check = false;
-            if(per.getApp_list().isEmpty()) {
+            if(per.getApp_list().isEmpty() && !per.getId().equals("admin")) {
                 temp.add(per);
             }
             else{
@@ -119,7 +120,7 @@ public class PersonManagerInMemory implements PersonManager {
                         check = true;
                     }
                 }
-                if(check == false){
+                if(check == false && !per.getId().equals("admin")){
                     temp.add(per);
                 }
             }
@@ -162,9 +163,9 @@ public class PersonManagerInMemory implements PersonManager {
     @Override
     public Person getPersonByUsername(String username){
         for(Person p : pr.findAll()){
-            log.info("Szukam "+username);
+            //log.info("Szukam "+username);
             if(p.getUsername().equals(username)){
-                log.info("Znalazłem");
+                //log.info("Znalazłem");
                 return p;
             }
         }
@@ -198,6 +199,9 @@ public class PersonManagerInMemory implements PersonManager {
 
     @Override
     public boolean isUsernameTaken(Person newbie){
+        if(newbie.getUsername().equals("admin")){
+            return true;
+        }
         for(Person per : pr.findAll()){
             if(per.getUsername().equals(newbie.getUsername()) && !per.getId().equals(newbie.getId())){
                 return true;

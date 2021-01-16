@@ -22,9 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
         Optional <Person> user = pr.findById(pm.getPersonByUsername(s).getId());
-
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + s));
 
         return user.map(MyUserDetails::new).get();

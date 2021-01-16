@@ -15,13 +15,13 @@
 <body>
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
-    <a target="_self" rel="noopener noreferrer" th:href="@{/}" class="border border-dark p-1 mr-2 rounded">
-        Back
+    <a target="_self" rel="noopener noreferrer" th:href="@{/logout}" class="border border-dark p-1 mr-2 rounded">
+        Log out
     </a>
     <div class="container">
         <div class="row">
             <div id="hp_link" class="col-3 text-center">
-                <h4><a th:href="@{/admin/personAll}">User</a> </h4>
+                <h4><a th:href="@{/user/profile}">User</a> </h4>
             </div>
             <div id="hp_link" class="col-3 text-center">
                 <h4><a th:href="@{/admin/personAdd}">Create an app</a> </h4>
