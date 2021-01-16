@@ -32,26 +32,26 @@ public class PersonController {
     @Autowired
     ApplicationManager am;
 
-    @GetMapping("/personAll")
+    @GetMapping("/admin/personAll")
     public String showPersons(Model model){
         model.addAttribute("persons", pm.getAllPersons());
         return "admin/persons";
     }
 
-    @GetMapping("/personsExport")
+    @GetMapping("/admin/personsExport")
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GeneratePersonsCSV.export(pm.getAllPersons());
         model.addAttribute("persons",pm.getAllPersons());
         return "admin/persons";
     }
 
-    @GetMapping("/personAll/edit")
+    @GetMapping("/admin/personAll/edit")
     public String editPerson(@RequestParam String id, Model model){
         model.addAttribute("person", pm.getPersonById(id));
         return "admin/persons-edit";
     }
 
-    @PostMapping("/personAll/edit")
+    @PostMapping("/admin/personAll/edit")
     public String editPersonHelper(@Valid Person person, Errors errors, Model model){
         if(errors.hasErrors()){
             return "admin/persons-edit";
@@ -69,13 +69,13 @@ public class PersonController {
         return "admin/persons";
     }
 
-    @GetMapping("/personAdd")
+    @GetMapping("/admin/personAdd")
     public String createPerson(Model model){
         model.addAttribute("person", new Person());
         return "admin/person-add";
     }
 
-    @PostMapping("/personAdd")
+    @PostMapping("/admin/personAdd")
     public String addCreated(@Valid Person person, Errors errors){
         if(errors.hasErrors()){
             return "admin/person-add";
@@ -93,7 +93,7 @@ public class PersonController {
         return "admin/home";
     }
 
-    @RequestMapping("/personDelete")
+    @RequestMapping("/admin/personDelete")
     public String deletePerson(@RequestParam String username, Model model){
         for(Application app : pm.getPersonByUsername(username).getApp_list()){
             am.removeFromUserList(app,pm.getPersonByUsername(username));
@@ -104,14 +104,14 @@ public class PersonController {
         return "admin/persons";
     }
 
-    @RequestMapping("appAll/selectUser")
+    @RequestMapping("/admin/appAll/selectUser")
     public String addUser(@RequestParam String id, Model model){
         model.addAttribute("persons",pm.getAllPersonsNotInApp(id));
         model.addAttribute("id",id);
-        return "app-addUsers";
+        return "admin/app-addUsers";
     }
 
-    @RequestMapping("appAll/selectUserToRemove")
+    @RequestMapping("/admin/appAll/selectUserToRemove")
     public String searchUser(@RequestParam String id, @RequestParam(value="username", required = false) String username, Model model){
         if(username==null || username==""){
             model.addAttribute("persons", pm.getAllPersonsInApp(id));
@@ -143,7 +143,7 @@ public class PersonController {
     }
 
 
-    @RequestMapping("person/showApps")
+    @RequestMapping("/admin/person/showApps")
     public String showApps(@RequestParam String id, @RequestParam(value="app_name", required = false) String app_name, Model model){
         if(app_name==null || app_name==""){
             model.addAttribute("apps", am.getAllAppsInUser(id));

@@ -17,7 +17,7 @@
     <div class="container">
 
 
-        <a target="_self" rel="noopener noreferrer" th:href="@{/appAll}" class="border border-dark p-1 mr-2 rounded">
+        <a target="_self" rel="noopener noreferrer" th:href="@{/admin/appAll}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
         <br/>
@@ -54,7 +54,7 @@
                     <td style="vertical-align: middle;" th:text="${person.username}"></td>
 
                     <div th:with="id=${id}">
-                        <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/appAll/addUser(id=${id},perid=${person.id})}">ADD</a></td>
+                        <td style="background-color: #87ceeb; vertical-align: middle;"><a th:href="@{/admin/appAll/addUser(id=${id},perid=${person.id})}">ADD</a></td>
                     </div>
 
                 </tr>

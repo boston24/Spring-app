@@ -14,7 +14,7 @@
 
 <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
     <div class="container">
-        <a target="_self" rel="noopener noreferrer" th:href="@{/admin/personAll}" class="border border-dark p-1 mr-2 rounded">
+        <a target="_self" rel="noopener noreferrer" th:href="@{/personAll}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
         <br/>
@@ -22,7 +22,7 @@
     <h1>User: <b><span th:text="${person.username}"></span></b></h1>
         <br/>
 
-    <form method="post" th:action="@{/admin/personAll/edit}" th:object="${person}">
+    <form method="post" th:action="@{/personAll/edit}" th:object="${person}">
 
         <!--<div th:if="${#fields.hasErrors()}">
               <span class="validationError">

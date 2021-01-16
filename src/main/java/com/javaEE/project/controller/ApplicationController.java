@@ -28,26 +28,26 @@ public class ApplicationController {
     @Autowired
     PersonManager pm;
 
-    @GetMapping("/appAll")
+    @GetMapping("/admin/appAll")
     public String showApps(Model model){
         model.addAttribute("apps", am.getAllApplications());
         return "admin/apps";
     }
 
-    @GetMapping("/appAll/edit")
+    @GetMapping("/admin/appAll/edit")
     public String editApp(@RequestParam String id, Model model){
         model.addAttribute("application",am.findById(id));
         return "admin/app-edit";
     }
 
-    @GetMapping("/appsExport")
+    @GetMapping("/admin/appsExport")
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GenerateAppsCSV.export(am.getAllApplications());
         model.addAttribute("apps",am.getAllApplications());
         return "admin/apps";
     }
 
-    @PostMapping("/appAll/edit")
+    @PostMapping("/admin/appAll/edit")
     public String editAppHelp(@Valid Application application, Errors errors, Model model){
         if(errors.hasErrors()){
             return "admin/app-edit";
@@ -65,13 +65,13 @@ public class ApplicationController {
         return "admin/apps";
     }
 
-    @GetMapping("/appAdd")
+    @GetMapping("/admin/appAdd")
     public String createApp(Model model){
         model.addAttribute("application", new Application());
         return "admin/apps-add";
     }
 
-    @PostMapping("/appAdd")
+    @PostMapping("/admin/appAdd")
     public String addCreated(@Valid Application application, Errors errors){
         if(errors.hasErrors()){
             return "admin/apps-add";
@@ -89,7 +89,7 @@ public class ApplicationController {
         return "admin/home";
     }
 
-    @RequestMapping("/appDelete")
+    @RequestMapping("/admin/appDelete")
     public String deletePerson(@RequestParam String domain, Model model){
         for(Person per : am.findByDomain(domain).getUser_list()){
             pm.removeAppFromList(am.findByDomain(domain),per);
@@ -99,7 +99,7 @@ public class ApplicationController {
         return "admin/apps";
     }
 
-    @RequestMapping("appAll/addUser")
+    @RequestMapping("/admin/appAll/addUser")
     public String addPersonToApp(@RequestParam(value = "id") String id_app, @RequestParam(value = "perid") String id_per, Model model){
         Person p = pm.getPersonById(id_per);
         Application app = am.findById(id_app);
@@ -110,7 +110,7 @@ public class ApplicationController {
         return "admin/app-addUsers";
     }
 
-    @RequestMapping("appAll/removeUser")
+    @RequestMapping("/admin/appAll/removeUser")
     public String removePersonFromApp(@RequestParam String id, @RequestParam String perid, Model model){
         Person p = pm.getPersonById(perid);
         log.info("TO DELETE: "+p.getUsername());

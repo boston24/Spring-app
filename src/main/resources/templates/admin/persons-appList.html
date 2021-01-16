@@ -15,13 +15,13 @@
 
     <div id="main" class="jumbotron d-flex align-items-center min-vh-100">
         <div class="container">
-            <a target="_self" rel="noopener noreferrer" th:href="@{/personAll}" class="border border-dark p-1 mr-2 rounded">
+            <a target="_self" rel="noopener noreferrer" th:href="@{/admin/personAll}" class="border border-dark p-1 mr-2 rounded">
                 Back
             </a><br/><br/>
             <h1>Applications</h1>
 
 
-            <form method="get" th:action="@{/person/showApps}">
+            <form method="get" th:action="@{/admin/person/showApps}">
                 <div class="form-group">
                     <input class="form-control" type="text" th:name="app_name" th:placeholder="App_name"/>
                 </div>

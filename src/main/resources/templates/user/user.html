@@ -18,7 +18,7 @@
         <a target="_self" rel="noopener noreferrer" th:href="@{/admin}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
-        <a class="border border-dark p-1 rounded" th:href="@{/admin/personsExport}" id="import">Export to csv</a>
+        <a class="border border-dark p-1 rounded" th:href="@{/personsExport}" id="import">Export to csv</a>
         <br/>
         <br/>
         <div class="alert alert-success alert-dismissable">
@@ -57,7 +57,7 @@
                     <td style="vertical-align: middle;" th:text="${person.password}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle;">
-                        <a th:href="@{/admin/personDelete(username=${person.username})}" data-target="#exampleModal">DELETE
+                        <a th:href="@{/personDelete(username=${person.username})}" data-target="#exampleModal">DELETE
                             <!-- MODAL -->
                             <!--
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,8 +83,8 @@
                             -->
                             <!-- MODAL -->
                         </a>
-                        <a th:href="@{/admin/personAll/edit(id=${person.id})}">EDIT</a>
-                        <a th:href="@{/admin/person/showApps(id=${person.id})}">SHOW APPS</a>
+                        <a th:href="@{/personAll/edit(id=${person.id})}">EDIT</a>
+                        <a th:href="@{/person/showApps(id=${person.id})}">SHOW APPS</a>
                     </td>
 
                 </tr>
