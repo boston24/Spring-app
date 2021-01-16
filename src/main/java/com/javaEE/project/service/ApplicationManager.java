@@ -22,5 +22,6 @@ public interface ApplicationManager {
     boolean isDomainTaken(Application newApp);
     boolean isAppNameTaken(Application newApp);
     void loadData(List<Application> data);
+    List<Application> getAllApplicationsNotUser(String perid);
 
 }

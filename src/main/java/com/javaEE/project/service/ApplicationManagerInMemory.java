@@ -170,6 +170,23 @@ public class ApplicationManagerInMemory implements ApplicationManager {
         return false;
     }
 
+    @Override
+    public List<Application> getAllApplicationsNotUser(String perid){
+        List<Application> out = new ArrayList<>();
+        for(Application app : getAllApplications()){
+            boolean check = false;
+            for(Person per : app.getUser_list()){
+                if(per.getId() == perid){
+                    check = true;
+                }
+            }
+            if(!check){
+                out.add(app);
+            }
+        }
+        return out;
+    }
+
 
 
 }

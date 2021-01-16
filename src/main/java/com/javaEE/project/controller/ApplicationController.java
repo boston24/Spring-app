@@ -152,5 +152,17 @@ public class ApplicationController {
         return "user/homeUser";
     }
 
+    @GetMapping("/user/browseapps")
+    public String showApps(Model model, Principal principal){
+        model.addAttribute("apps", am.getAllApplicationsNotUser(pm.getPersonByUsername(principal.getName()).getId()));
+        return "user/user-browseapps";
+    }
+
+    @RequestMapping("/user/browseapps/add")
+    public String addPersonToApp(@RequestParam(value = "id") String id_app, Model model, Principal principal){
+        pm.addAppToAppList(am.findById(id_app),pm.getPersonByUsername(principal.getName()));
+        model.addAttribute("apps", am.getAllApplicationsNotUser(pm.getPersonByUsername(principal.getName()).getId()));
+        return "user/user-browseapps";
+    }
 
 }
