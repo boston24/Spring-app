@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -218,6 +220,18 @@ public class PersonManagerInMemory implements PersonManager {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean isStrong(String password){
+        Pattern pattern = Pattern.compile("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{6,}$");
+        Matcher matcher = pattern.matcher(password);
+        if(matcher.matches()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 }

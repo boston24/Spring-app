@@ -21,5 +21,6 @@ public interface PersonManager {
     boolean isEmailTaken(Person person);
     boolean isUsernameTaken(Person person);
     void loadData(List<Person> data);
+    boolean isStrong(String password);
 
 }

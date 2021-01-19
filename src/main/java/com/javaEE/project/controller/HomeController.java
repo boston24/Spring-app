@@ -86,6 +86,10 @@ public class HomeController {
             errors.rejectValue("email","error.person","Email taken");
             return "all/register";
         }
+        if(!pm.isStrong(person.getPassword())){
+            errors.rejectValue("password","error.person","Password too weak. Requirements: 2 uppercase letters, 1 special case letter, 2 digits, 3 lowercase letters, length of 6.");
+            return "all/register";
+        }
         pm.addPerson(person);
         log.info("Person created: " + person);
         return "redirect:/";

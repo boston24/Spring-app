@@ -92,6 +92,11 @@ public class PersonController {
             errors.rejectValue("email","error.person","Email taken");
             return "admin/person-add";
         }
+        if(!pm.isStrong(person.getPassword())){
+            errors.rejectValue("password","error.person","Password too weak. Requirements: 2 uppercase letters, 1 special case letter, 2 digits, 3 lowercase letters, length of 6");
+            return "admin/person-add";
+        }
+
         pm.addPerson(person);
         log.info("Person created: " + person);
         return "admin/home";
@@ -201,6 +206,10 @@ public class PersonController {
         }
         if(pm.isEmailTaken(person)){
             errors.rejectValue("email","error.person","Email taken");
+            return "user/user-edit";
+        }
+        if(!pm.isStrong(person.getPassword())){
+            errors.rejectValue("password","error.person","Password too weak. Requirements: 2 uppercase letters, 1 special case letter, 2 digits, 3 lowercase letters, length of 6");
             return "user/user-edit";
         }
         pm.replace(person);
