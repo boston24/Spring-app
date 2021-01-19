@@ -14,6 +14,7 @@ import com.sun.mail.iap.ConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailAuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -122,6 +123,12 @@ public class HomeController {
         }
         model.addAttribute("apps", am.getAllApplications());
         return "all/allApps";
+    }
+
+    @GetMapping("/accessDenied")
+    public String denied(){
+        SecurityContextHolder.clearContext();
+        return "accessDenied";
     }
 
 }
