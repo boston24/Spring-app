@@ -65,7 +65,7 @@ public class Person {
     @Column(name = "password")
     @CsvBindByName(column = "Password")
     @NotNull(message = "Password required")
-    @Size(min = 6, message = "Password too short (min. 6 characters)")
+    //@Size(min = 6, message = "Password too short (min. 6 characters)")
     private String password;
 
     @ManyToMany

@@ -6,8 +6,10 @@ import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
+import com.sun.mail.iap.ConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
+import java.net.ConnectException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +93,17 @@ public class HomeController {
             errors.rejectValue("password","error.person","Password too weak. Requirements: 2 uppercase letters, 1 special case letter, 2 digits, 3 lowercase letters, length of 6.");
             return "all/register";
         }
+        person.setActive(true);
+        person.setRoles("ROLE_USER");
         pm.addPerson(person);
+        //pm.sendMail(person);
+        try{
+            pm.sendMail(person);
+            log.info("Email sent");
+        } catch(Exception e){
+            System.err.println("Can't connect to the email server");
+        }
+
         log.info("Person created: " + person);
         return "redirect:/";
     }

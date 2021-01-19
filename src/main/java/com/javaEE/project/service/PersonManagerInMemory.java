@@ -2,10 +2,13 @@ package com.javaEE.project.service;
 
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.email.EmailConfig;
 import com.javaEE.project.repository.ApplicationRepository;
 import com.javaEE.project.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -232,6 +235,27 @@ public class PersonManagerInMemory implements PersonManager {
         else{
             return false;
         }
+    }
+
+    @Override
+    public void sendMail(Person person){
+
+        EmailConfig emcfg = new EmailConfig();
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+        mailSender.setHost(emcfg.getHost());
+        mailSender.setPort(emcfg.getPort());
+        mailSender.setUsername(emcfg.getUsername());
+        mailSender.setPassword(emcfg.getPassword());
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom("project@gmail.com");
+        mailMessage.setTo(person.getEmail());
+        mailMessage.setSubject("Welcome "+person.getUsername());
+        mailMessage.setText("You have been registered!");
+
+        mailSender.send(mailMessage);
+
     }
 
 }

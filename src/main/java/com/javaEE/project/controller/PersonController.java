@@ -98,6 +98,8 @@ public class PersonController {
         }
 
         pm.addPerson(person);
+        //pm.sendMail(person);
+
         log.info("Person created: " + person);
         return "admin/home";
     }
