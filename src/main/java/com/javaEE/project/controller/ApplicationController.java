@@ -30,7 +30,8 @@ public class ApplicationController {
     PersonManager pm;
 
     @GetMapping("/admin/appAll")
-    public String showApps(Model model){
+    public String showApps(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
+        GenerateAppsCSV.export(am.getAllApplications());
         model.addAttribute("apps", am.getAllApplications());
         return "admin/apps";
     }

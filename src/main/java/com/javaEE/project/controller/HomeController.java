@@ -2,10 +2,14 @@ package com.javaEE.project.controller;
 
 import com.javaEE.project.csvreaders.CSVReaderApplications;
 import com.javaEE.project.csvreaders.CSVReaderPersons;
+import com.javaEE.project.csvreaders.GenerateAppsCSV;
+import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.sun.mail.iap.ConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.ConnectException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -59,8 +64,10 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
-    public String admin(Principal principal){
+    public String admin(Principal principal) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         log.info(principal.getName());
+        //GenerateAppsCSV.export(am.getAllApplications());
+        //GeneratePersonsCSV.export(pm.getAllPersons());
         return "admin/home";
     }
 

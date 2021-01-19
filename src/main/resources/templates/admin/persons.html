@@ -20,9 +20,17 @@
         </a>
         <!--<a class="border border-dark p-1 rounded" th:href="@{/admin/personsExport}" id="import">Export to csv</a>
         -->
-        <a class="border border-dark p-1 rounded" href="outputs/persons-generated.csv" id="export" download="persons-generated.csv">Export to csv</a>
+        <a class="border border-dark p-1 rounded" href="src/main/resources/outputs/persons-generated.csv" id="export" download="persons-generated.csv">Export to csv</a>
+
         <br/>
         <br/>
+
+        <form method="post" th:action="@{/admin/personImport}" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv">
+            <button type="submit">Import</button>
+        </form>
+
+
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Exported users to CSV.

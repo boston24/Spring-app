@@ -15,4 +15,12 @@ public class CSVReaderPersons {
         CsvToBean<Person> csvtobean = new CsvToBeanBuilder<Person>(reader).withType(Person.class).withSeparator(',').withIgnoreLeadingWhiteSpace(true).build();
         return csvtobean.parse();
     }
+
+    public List readCSVOnUpload(String source) throws FileNotFoundException{
+        String filename = source;
+        FileReader reader = new FileReader(filename);
+        CsvToBean<Person> csvtobean = new CsvToBeanBuilder<Person>(reader).withType(Person.class).withSeparator(',').withIgnoreLeadingWhiteSpace(true).build();
+        return csvtobean.parse();
+    }
+
 }

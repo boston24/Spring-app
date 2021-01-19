@@ -1,5 +1,7 @@
 package com.javaEE.project.controller;
 
+import com.javaEE.project.csvreaders.CSVReaderApplications;
+import com.javaEE.project.csvreaders.CSVReaderPersons;
 import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
@@ -19,9 +21,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.RollbackException;
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +46,46 @@ public class PersonController {
     @Autowired
     ApplicationManager am;
 
+    @Autowired
+    PersonRepository pr;
+
     @GetMapping("/admin/personAll")
-    public String showPersons(Model model){
+    public String showPersons(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
+        GeneratePersonsCSV.export(pm.getAllPersons());
         model.addAttribute("persons", pm.getAllPersons());
         return "admin/persons";
+    }
+
+    @PostMapping("/admin/personImport")
+    public String importPersons(@RequestParam("file") MultipartFile file, RedirectAttributes attributes){
+
+        try{
+
+            if(file.isEmpty()){
+                return "redirect:/admin";
+            }
+
+            pr.deleteAll();
+
+            try {
+                Path path = Paths.get("src/main/resources/persons-upload.csv");
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                List<Person> person = new CSVReaderPersons().readCSVOnUpload("src/main/resources/persons-upload.csv");
+                pm.loadData(person);
+            }
+            catch (FileNotFoundException ex){
+                log.info("File not found");
+            }
+
+        } catch (Exception ex){
+            System.err.println("Faulty .csv file");
+        }
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/personsExport")
