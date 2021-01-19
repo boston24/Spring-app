@@ -18,7 +18,9 @@
         <a target="_self" rel="noopener noreferrer" th:href="@{/admin}" class="border border-dark p-1 mr-2 rounded">
             Back
         </a>
-        <a class="border border-dark p-1 rounded" th:href="@{/admin/personsExport}" id="import">Export to csv</a>
+        <!--<a class="border border-dark p-1 rounded" th:href="@{/admin/personsExport}" id="import">Export to csv</a>
+        -->
+        <a class="border border-dark p-1 rounded" href="outputs/persons-generated.csv" id="export" download="persons-generated.csv">Export to csv</a>
         <br/>
         <br/>
         <div class="alert alert-success alert-dismissable">
