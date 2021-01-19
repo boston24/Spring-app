@@ -1,9 +1,12 @@
 package com.javaEE.project.controller;
 
 
+import com.javaEE.project.csvreaders.CSVReaderApplications;
+import com.javaEE.project.csvreaders.CSVReaderPersons;
 import com.javaEE.project.csvreaders.GenerateAppsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.repository.ApplicationRepository;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -14,10 +17,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -28,6 +39,9 @@ public class ApplicationController {
 
     @Autowired
     PersonManager pm;
+
+    @Autowired
+    ApplicationRepository ar;
 
     @GetMapping("/admin/appAll")
     public String showApps(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
@@ -40,6 +54,38 @@ public class ApplicationController {
     public String editApp(@RequestParam String id, Model model){
         model.addAttribute("application",am.findById(id));
         return "admin/app-edit";
+    }
+
+    @PostMapping("/admin/appImport")
+    public String importPersons(@RequestParam("file") MultipartFile file, RedirectAttributes attributes){
+        try{
+
+            if(file.isEmpty()){
+                return "redirect:/admin";
+            }
+
+            ar.deleteAll();
+
+            try {
+                Path path = Paths.get("src/main/resources/apps-upload.csv");
+                Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try{
+                List<Application> app = new CSVReaderApplications().readCSVOnUpload("src/main/resources/apps-upload.csv");
+                am.loadData(app);
+            }
+            catch (FileNotFoundException ex){
+                log.info("File not found");
+            }
+
+        } catch (Exception ex){
+            System.err.println("Faulty .csv file");
+        }
+        return "redirect:/admin";
+
     }
 
     @GetMapping("/admin/appsExport")
