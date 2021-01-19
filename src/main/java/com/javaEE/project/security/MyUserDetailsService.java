@@ -3,6 +3,7 @@ package com.javaEE.project.security;
 import com.javaEE.project.domain.Person;
 import com.javaEE.project.repository.PersonRepository;
 import com.javaEE.project.service.PersonManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,11 +23,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional <Person> user = pr.findById(pm.getPersonByUsername(s).getId());
-        user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + s));
 
-        return user.map(MyUserDetails::new).get();
-
+        try{
+            Optional <Person> user = pr.findById(pm.getPersonByUsername(s).getId());
+            return user.map(MyUserDetails::new).get();
+        } catch (Exception e){
+            throw new UsernameNotFoundException("Not found: " + s);
+        }
 
     }
 }
