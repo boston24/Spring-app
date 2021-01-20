@@ -50,7 +50,7 @@
                     <td style="vertical-align: middle;" th:text="${person.password}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle;">
-                        <a th:href="@{/user/profile/delete(username=${person.username})}" data-target="#exampleModal">DELETE
+                        <a th:href="@{/user/profile/delete(username=${person.username})}" data-target="#exampleModal" onclick="return confirm('Are you sure?');">DELETE
                             <!-- MODAL -->
                             <!--
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

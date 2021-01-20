@@ -64,7 +64,7 @@
                     <td style="vertical-align: middle;" th:text="${person.username}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle;">
-                        <a th:href="@{/admin/appAll/removeUser(id=${id},perid=${person.id})}" id="deleteButton">DELETE</a>
+                        <a th:href="@{/admin/appAll/removeUser(id=${id},perid=${person.id})}" id="deleteButton" onclick="return confirm('Are you sure?');">DELETE</a>
                     </td>
 
                         <!-- MODAL -->

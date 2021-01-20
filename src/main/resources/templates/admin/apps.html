@@ -62,7 +62,7 @@
                     <td style="vertical-align: middle;" th:text="${app.domain}"></td>
 
                     <td style="background-color: #87ceeb; vertical-align: middle; display: flex; justify-content: space-evenly;">
-                        <a th:href="@{/admin/appDelete(domain=${app.domain})}" data-target="#exampleModal">DELETE</a>
+                        <a th:href="@{/admin/appDelete(domain=${app.domain})}" data-target="#exampleModal" onclick="return confirm('Are you sure?');">DELETE</a>
                         <a th:href="@{/admin/appAll/selectUser(id=${app.id})}">ADD USERS</a>
                         <a th:href="@{/admin/appAll/selectUserToRemove(id=${app.id})}">SHOW USERS</a>
                         <a th:href="@{/admin/appAll/edit(id=${app.id})}">EDIT</a>
