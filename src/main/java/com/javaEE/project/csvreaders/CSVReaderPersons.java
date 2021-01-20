@@ -17,8 +17,7 @@ public class CSVReaderPersons {
     }
 
     public List readCSVOnUpload(String source) throws FileNotFoundException{
-        String filename = source;
-        FileReader reader = new FileReader(filename);
+        FileReader reader = new FileReader(source);
         CsvToBean<Person> csvtobean = new CsvToBeanBuilder<Person>(reader).withType(Person.class).withSeparator(',').withIgnoreLeadingWhiteSpace(true).build();
         return csvtobean.parse();
     }

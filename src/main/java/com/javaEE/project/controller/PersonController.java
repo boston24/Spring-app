@@ -88,6 +88,7 @@ public class PersonController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/admin/personsExport")
     public String toCSV(Model model) throws CsvRequiredFieldEmptyException, IOException, CsvDataTypeMismatchException, InterruptedException{
         GeneratePersonsCSV.export(pm.getAllPersons());
