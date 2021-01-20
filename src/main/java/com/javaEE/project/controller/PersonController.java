@@ -144,6 +144,8 @@ public class PersonController {
             return "admin/person-add";
         }
 
+        person.setActive(true);
+        person.setRoles("ROLE_USER");
         pm.addPerson(person);
         //pm.sendMail(person);
 

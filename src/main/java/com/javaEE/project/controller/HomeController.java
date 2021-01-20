@@ -6,6 +6,7 @@ import com.javaEE.project.csvreaders.GenerateAppsCSV;
 import com.javaEE.project.csvreaders.GeneratePersonsCSV;
 import com.javaEE.project.domain.Application;
 import com.javaEE.project.domain.Person;
+import com.javaEE.project.email.MailService;
 import com.javaEE.project.service.ApplicationManager;
 import com.javaEE.project.service.PersonManager;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
@@ -21,6 +22,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,6 +34,11 @@ import java.util.List;
 @Slf4j
 @Controller
 public class HomeController {
+
+    private MailService mailService;
+    public HomeController(MailService mailService){
+        this.mailService = mailService;
+    }
 
     @Autowired
     PersonManager pm;
@@ -85,7 +92,7 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String addRegistered(@Valid Person person, Errors errors){
+    public String addRegistered(@Valid Person person, Errors errors) throws MessagingException {
         if(errors.hasErrors()){
             return "all/register";
         }
@@ -104,13 +111,15 @@ public class HomeController {
         person.setActive(true);
         person.setRoles("ROLE_USER");
         pm.addPerson(person);
+
         //pm.sendMail(person);
-        try{
+        mailService.sendMail(person.getEmail(), "Welcome "+person.getUsername()+"!", "You've been registered",true);
+        /*try{
             pm.sendMail(person);
             log.info("Email sent");
         } catch(Exception e){
             System.err.println("Can't connect to the email server");
-        }
+        }*/
 
         log.info("Person created: " + person);
         return "redirect:/";
