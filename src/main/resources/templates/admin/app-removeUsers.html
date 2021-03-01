@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+
+    <title>Users</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-base.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<div id="main" class="jumbotron d-flex align-items-middle min-vh-100">
+    <div class="container">
+        <a target="_self" rel="noopener noreferrer" th:href="@{/admin/appAll}" class="border border-dark p-1 mr-2 rounded">
+            Back
+        </a>
+        <br/>
+        <br/>
+    <h1>Users</h1>
+    </br>
+
+    <form method="get" th:action="@{/admin/appAll/selectUserToRemove}">
+
+        <div class="form-group">
+            <input class="form-control" type="text" th:name="username" th:placeholder="Username"/>
+
+        </div>
+        <input type="text" value="${id}" hidden th:value="${id}" name="id"/>
+        <button id="addButton" type="submit" class="btn">Search</button>
+
+    </form>
+    </br>
+
+    <div>
+       <h3 th:if="${#lists.isEmpty(persons)}">No users</h3>
+        <div th:unless="${#lists.isEmpty(persons)}">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Username</th>
+
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="person : ${persons}">
+                    <td style="vertical-align: middle;" th:text="${person.first_name}"></td>
+                    <td style="vertical-align: middle;" th:text="${person.last_name}"></td>
+                    <td style="vertical-align: middle;" th:text="${person.email}"></td>
+                    <td style="vertical-align: middle;" th:text="${person.country}"></td>
+                    <td style="vertical-align: middle;" th:text="${person.username}"></td>
+
+                    <td style="background-color: #87ceeb; vertical-align: middle;">
+                        <a th:href="@{/admin/appAll/removeUser(id=${id},perid=${person.id})}" id="deleteButton" onclick="return confirm('Are you sure?');">DELETE</a>
+                    </td>
+
+                        <!-- MODAL -->
+                        <!--
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span></span>
+                                        Do you want to delete a user?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                       <a th:href="@{/appAll/removeUser(id=${id},perid=${person.id})}" class="btn btn-danger">Yes</a>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <!-- MODAL -->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+
+
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            var data = [[${data}]];
+            console.log(data);
+            var len = 0;
+
+            for (const [key, value] of Object.entries(data)) {
+                len++;
+            }
+
+            console.log(len)
+
+            var colors = [];
+
+            var i;
+            for(i=0; i<len;i++){
+                var r = Math.floor(Math.random() * 255);
+                var g = Math.floor(Math.random() * 255);
+                var b = Math.floor(Math.random() * 255);
+                colors.push("rgb(" + r + "," + g + "," + b + ")");
+               };
+
+            console.log(colors);
+
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Countries',
+                        data: Object.keys(data).map(function(key) {return data[key];}),
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+            });
+
+
+
+        /*]]>*/
+        </script>
+    </div>
+    </div>
+</div>
+
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var username = button.data('username')
+            var modal = $(this)
+            modal.find('.modal-body span').text('Do you want to delete user ' + username)
+            modal.find('.modal-footer span').html("<button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                        <a th:href="@{/appAll/removeUser(id=${id},perid=' + id +')}" class="btn btn-danger">Yes</a>")
+            })
+
+    /*]]>*/
+</script>
+
+
+
+
+
+
+
+
+<style>
+            #main{
+        /*background-image: linear-gradient(navy,skyblue);*/
+        background-color: #2DA8D8FF;
+        font-family: 'Hammersmith One', sans-serif;
+        font-size: 2vh;
+        max-width: 1920px;
+        color: #2A2B2DFF;
+    }
+
+    body{
+            background-color: #2DA8D8FF;
+            font-family: 'Hammersmith One', sans-serif;
+            font-size: 2vh;
+            max-width: 1920px;
+            color: #2A2B2DFF;
+    }
+
+    #hp_link h4{
+        background-image: linear-gradient(transparent calc(65% - 5px),#D9514EFF 5px);
+        background-size: 0;
+        background-repeat: no-repeat;
+        display: inline;
+        -webkit-transition: 0.5s ease;
+        transition: 0.5s ease;
+    }
+    #hp_link:hover h4{
+        background-size: 100%;
+    }
+
+    a{
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    a:hover
+    {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    #error{
+        color: #D9514EFF;
+    }
+
+    #addButton{
+        background-color: #2A2B2DFF;
+        color: #2DA8D8FF;
+    }
+
+    .table{
+        background-color: white;
+        border: solid;
+    }
+    </style>
+
+
+
+</body>
+</html>
